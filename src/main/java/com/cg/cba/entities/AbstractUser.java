@@ -6,10 +6,15 @@ package com.cg.cba.entities;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * @author arc
  *
  */
+@Getter
+@Setter
 @MappedSuperclass
 public abstract class AbstractUser {
 

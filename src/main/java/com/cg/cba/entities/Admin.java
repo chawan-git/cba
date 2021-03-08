@@ -25,4 +25,5 @@ import lombok.Setter;
 public class Admin extends AbstractUser{
 	@Id
 	private int adminId;
+	
 }

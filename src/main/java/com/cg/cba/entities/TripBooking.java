@@ -7,48 +7,56 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class TripBooking {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Integer tripBookingId;
-	@Column
-	private int customerId;
-	@ManyToOne
-	@JoinColumn
-	private Driver driver;
-	@Column
-	private String fromLocation;
-	@Column
-	private String toLocation;
-	@Column
-	public  LocalDateTime fromDateTime;
-	@Column
-	private LocalDateTime toDateTime; 
-	@Column
-	private boolean status;
-	@Column
-	private float distanceInKm;
-	@Column
-	private float bill;
+	private int tripBookingId;
 	
+	@Column(nullable = false)
+	private int customerId;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "driver_fk")
+	private Driver driver;
+	
+	@Column(nullable = false)
+	private String fromLocation;
+	
+	@Column(nullable = false)
+	private String toLocation;
+		
+	@JsonFormat(pattern = "yyyy-MM-dd H:m:s")
+	@Column(nullable = false)
+	public  LocalDateTime fromDateTime;
+	
+	@JsonFormat(pattern = "yyyy-MM-dd H:m:s")
+	@Column(nullable = false)
+	private LocalDateTime toDateTime; 
+	
+	private boolean status;
+	
+	private float distanceInKm;
+	
+	private float bill;	
 	
 }
