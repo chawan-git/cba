@@ -35,7 +35,7 @@ public class CabServiceImpl implements ICabService
 	}
 
 	@Override
-	public Cab updateCab(Cab cab) {
+	public Cab updateCab(Cab cab) throws CabNotFoundException{
 		Optional<Cab> cab1 = cabRepository.findById(cab.getCabId());
 		if(!cab1.isPresent()) {
 			throw new CabNotFoundException("Cab with ID "+cab.getCabId()+" not found!");
@@ -47,7 +47,7 @@ public class CabServiceImpl implements ICabService
 	}
 
 	@Override
-	public Cab deleteCab(int cabId) {
+	public Cab deleteCab(int cabId) throws CabNotFoundException{
 		Optional<Cab> cab1 = cabRepository.findById(cabId);
 		if(!cab1.isPresent()) {
 			throw new CabNotFoundException("Cab with ID "+cabId+" not found!");
@@ -59,15 +59,21 @@ public class CabServiceImpl implements ICabService
 	}
 
 	@Override
-	public List<Cab> viewCabsOfType(String carType) {
+	public List<Cab> viewCabsOfType(String carType) throws CabNotFoundException{
 		
-		return cabRepository.viewCabsOfType(carType);
+		List<Cab> cabs = cabRepository.viewCabsOfType(carType);
+		if(cabs.isEmpty())
+			throw new CabNotFoundException("Cab Not Found!");
+		return cabs;
 	}
 
 	@Override
-	public int countCabsOfType(String carType) {
-		return cabRepository.countCabsOfType(carType);
-	
+	public int countCabsOfType(String carType) throws CabNotFoundException{
+		int count = cabRepository.countCabsOfType(carType);
+		if(count < 1) {
+			throw new CabNotFoundException("Cab Not Found!");
+		}
+		return count;
 	}
 
 }

@@ -14,6 +14,7 @@ import com.cg.cba.entities.Admin;
 import com.cg.cba.entities.TripBooking;
 import com.cg.cba.exception.AdminAlreadyExsistsException;
 import com.cg.cba.exception.AdminNotFoundException;
+import com.cg.cba.exception.TripBookingNotFoundException;
 import com.cg.cba.repository.IAdminRepository;
 
 /**
@@ -30,7 +31,7 @@ public class AdminServiceImpl implements IAdminService {
 	public Admin insertAdmin(Admin admin) throws AdminAlreadyExsistsException {
 		// TODO Auto-generated method stub
 		Optional<Admin> admin1 = adminRepository.findById(admin.getAdminId());
-		if(!admin1.isPresent()) {
+		if(admin1.isPresent()) {
 			throw new AdminAlreadyExsistsException("Insert Failed! Admin with ID: "+admin.getAdminId()+" already exists!");
 		}
 		return adminRepository.save(admin);
@@ -68,31 +69,51 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public List<TripBooking> getAllTrips(int customerId) {
 		// TODO Auto-generated method stub
-		return adminRepository.getAllTrips(customerId);
+		List<TripBooking> allTrips = adminRepository.getAllTrips(customerId);
+		if(allTrips.isEmpty()) {
+			throw new TripBookingNotFoundException("No Trip Bookings Found!");
+		}
+		return allTrips;
 	}
 
 	@Override
 	public List<TripBooking> getTripsCabwise() {
 		// TODO Auto-generated method stub
-		return adminRepository.getTripsCabwise();
+		List<TripBooking> trips = adminRepository.getTripsCabwise();
+		if(trips.isEmpty()) {
+			throw new TripBookingNotFoundException("No Trip Bookings Found!");
+		}
+		return trips;
 	}
 
 	@Override
 	public List<TripBooking> getTripsCustomerwise() {
 		// TODO Auto-generated method stub
-		return adminRepository.getTripsCustomerwise();
+		List<TripBooking> trips = adminRepository.getTripsCustomerwise();
+		if(trips.isEmpty()) {
+			throw new TripBookingNotFoundException("No Trip Bookings Found!");
+		}
+		return trips;
 	}
 
 	@Override
 	public List<TripBooking> getTripsDatewise() {
 		// TODO Auto-generated method stub
-		return adminRepository.getTripsDatewise();
+		List<TripBooking> trips = adminRepository.getTripsDatewise();
+		if(trips.isEmpty()) {
+			throw new TripBookingNotFoundException("No Trip Bookings Found!");
+		}
+		return trips;
 	}
 
 	@Override
 	public List<TripBooking> getAllTripsForDays(int customerId, LocalDateTime fromDate, LocalDateTime toDate) {
 		// TODO Auto-generated method stub
-		return adminRepository.getAllTripsForDays(customerId, fromDate, toDate);
+		List<TripBooking> trips = adminRepository.getAllTripsForDays(customerId,fromDate,toDate);
+		if(trips.isEmpty()) {
+			throw new TripBookingNotFoundException("No Trip Bookings Found!");
+		}
+		return trips;
 	}
 
 }

@@ -48,31 +48,39 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public Customer deleteCustomer(Customer customer) throws CustomerNotFoundException {
-		Optional<Customer> customer1 = customerRepository.findById(customer.getCustomerId());
+	public Customer deleteCustomer(int customerId) throws CustomerNotFoundException {
+		Optional<Customer> customer1 = customerRepository.findById(customerId);
 		if (!customer1.isPresent()) {
 			throw new CustomerNotFoundException(
-					"Delete Failed! Customer with ID: " + customer.getCustomerId() + " not found!");
+					"Delete Failed! Customer with ID: " + customerId + " not found!");
 		}
-		customerRepository.delete(customer);
-		return customer;
+		customerRepository.delete(customer1.get());
+		return customer1.get();
 	}
 
 	@Override
-	public List<Customer> viewCustomers() {
-		return customerRepository.viewCustomers();
-	}
-	
-	@Override
-	public Customer viewCustomer(int customerId) {
-		// TODO Auto-generated method stub
-	
-		return customerRepository.viewCustomer(customerId);
+	public List<Customer> viewCustomers() throws CustomerNotFoundException{
+		List<Customer> customers = customerRepository.viewCustomers();
+		if(customers.isEmpty()) {
+			throw new CustomerNotFoundException("Customer Not Found!");
+		}
+		return customers;
 		
 	}
 	
 	@Override
-	public Customer validateCustomer(String username, String password) {
+	public Customer viewCustomer(int customerId) throws CustomerNotFoundException{
+		// TODO Auto-generated method stub
+	
+		Customer customer = customerRepository.viewCustomer(customerId);
+		if(customer.getCustomerId() < 1)
+			throw new CustomerNotFoundException("Customer Not Found!");
+		return customer;
+		
+	}
+	
+	@Override
+	public Customer validateCustomer(String username, String password) throws CustomerNotFoundException{
 		// TODO Auto-generated method stub
 		List<Customer> customerList = customerRepository.findAll();
 		for(Customer c : customerList) {

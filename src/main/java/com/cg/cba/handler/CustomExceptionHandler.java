@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.cg.cba.exception.TripBookingNotFoundException;
+import com.cg.cba.exception.UserCredentialsInvalidException;
 import com.cg.cba.exception.AdminAlreadyExsistsException;
 import com.cg.cba.exception.AdminNotFoundException;
 import com.cg.cba.exception.CabAlreadyExistsException;
@@ -84,6 +85,11 @@ public class CustomExceptionHandler {
 	
 	@ExceptionHandler(TripAlreadyExistsException.class)
 	public ResponseEntity<String> TripAlreadyExistsException(TripAlreadyExistsException exception){
+		return new ResponseEntity<String>(exception.getMessage(),HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(UserCredentialsInvalidException.class)
+	public ResponseEntity<String> UserCredentialsInvalidException(UserCredentialsInvalidException exception){
 		return new ResponseEntity<String>(exception.getMessage(),HttpStatus.NOT_FOUND);
 	}
 	

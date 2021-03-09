@@ -14,7 +14,7 @@ import com.cg.cba.entities.TripBooking;
 @Repository
 public interface ITripBookingRepository extends JpaRepository<TripBooking, Integer> {
 
-	@Query("SELECT trip FROM TripBooking trip WHERE customerId = ?1")
+	@Query("SELECT trip FROM TripBooking trip, Customer customer WHERE customer.customerId = ?1")
 	public List<TripBooking> viewAllTripsCustomer(int customerId);
 	
 }

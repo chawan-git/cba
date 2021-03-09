@@ -6,11 +6,11 @@ package com.cg.cba.service;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.cba.entities.Driver;
+import com.cg.cba.exception.CabNotFoundException;
 import com.cg.cba.exception.DriverAlreadyExistsException;
 import com.cg.cba.exception.DriverNotFoundException;
 import com.cg.cba.repository.IDriverRepository;
@@ -25,7 +25,7 @@ public class DriverServiceImpl implements IDriverService{
 	
 	
 	@Override
-	public Driver insertDriver(Driver driver) throws DriverAlreadyExistsException {
+	public Driver insertDriver(Driver driver) throws DriverAlreadyExistsException, CabNotFoundException {
 		Optional<Driver> driver1 = driverRepository.findById(driver.getDriverId());
 		if(driver1.isPresent()) {
 			throw new DriverAlreadyExistsException("Driver with ID "+driver.getDriverId()+" already exists!");
@@ -36,7 +36,7 @@ public class DriverServiceImpl implements IDriverService{
 	
 
 	@Override
-	public Driver updateDriver(Driver driver) throws DriverNotFoundException {
+	public Driver updateDriver(Driver driver) throws DriverNotFoundException, CabNotFoundException {
 		Optional<Driver> driver1 = driverRepository.findById(driver.getDriverId());
 		if(!driver1.isPresent()) {
 			throw new DriverNotFoundException("Driver with ID "+driver.getDriverId()+" not found!");
@@ -57,7 +57,7 @@ public class DriverServiceImpl implements IDriverService{
 
 
 	@Override
-	public Driver deleteDriver(int driverId) throws DriverNotFoundException {
+	public Driver deleteDriver(int driverId) throws DriverNotFoundException, CabNotFoundException {
 		Optional<Driver> driver1 = driverRepository.findById(driverId);
 		if(!driver1.isPresent()) {
 			throw new DriverNotFoundException("Driver with ID "+driverId+" not found!");
@@ -70,16 +70,22 @@ public class DriverServiceImpl implements IDriverService{
 
 
 	@Override
-	public Driver viewDriver(int driverId) throws DriverNotFoundException {
+	public Driver viewDriver(int driverId) throws DriverNotFoundException, CabNotFoundException {
 		
-		return driverRepository.viewDriver(driverId);
+		Driver driver =  driverRepository.viewDriver(driverId);
+		if(driver.getDriverId() < 1)
+			throw new DriverNotFoundException("Driver Not Found!");
+		return driver;
 	}
 
 
 	@Override
-	public List<Driver> viewBestDrivers() {
+	public List<Driver> viewBestDrivers() throws DriverNotFoundException, CabNotFoundException {
 		// TODO Auto-generated method stub
-		return driverRepository.viewBestDrivers();
+		List<Driver> drivers = driverRepository.viewBestDrivers();
+		if(drivers.isEmpty())
+			throw new DriverNotFoundException("Driver Not Found!");
+		return drivers;
 	}
 
 

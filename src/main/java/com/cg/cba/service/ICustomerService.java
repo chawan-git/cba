@@ -11,8 +11,8 @@ import com.cg.cba.exception.CustomerNotFoundException;
 public interface ICustomerService {
 	public Customer insertCustomer(Customer customer) throws CustomerAlreadyExistsException;
 	public Customer updateCustomer(Customer customer) throws CustomerNotFoundException;
-	public Customer deleteCustomer(Customer customer) throws CustomerNotFoundException;
-	public List<Customer> viewCustomers();
-	public Customer viewCustomer(int customerId);
-	public Customer validateCustomer(String username, String password);
+	public Customer deleteCustomer(int customerId) throws CustomerNotFoundException;
+	public List<Customer> viewCustomers() throws CustomerNotFoundException;
+	public Customer viewCustomer(int customerId) throws CustomerNotFoundException;
+	public Customer validateCustomer(String username, String password) throws CustomerNotFoundException;
 }

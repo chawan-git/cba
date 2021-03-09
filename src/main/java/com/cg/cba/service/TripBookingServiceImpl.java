@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.List;
 
 import com.cg.cba.exception.CustomerNotFoundException;
+import com.cg.cba.exception.DriverNotFoundException;
 import com.cg.cba.exception.TripAlreadyExistsException;
 import com.cg.cba.exception.TripBookingNotFoundException;
 import com.cg.cba.exception.ZeroDistanceException;
@@ -24,9 +25,9 @@ public class TripBookingServiceImpl implements ITripBookingService {
 
 	
 	@Override
-	public TripBooking insertTripBooking(TripBooking tripBooking) throws TripAlreadyExistsException {
+	public TripBooking insertTripBooking(TripBooking tripBooking) throws TripAlreadyExistsException, CustomerNotFoundException, DriverNotFoundException {
 				
-		if(tripBooking.getCustomerId()==0)
+		if(tripBooking.getCustomer().getCustomerId()==0)
 			throw new CustomerNotFoundException("Cutomer Id cannot be empty or 0");
 		
 		if(tripBooking.getDistanceInKm()==0)
@@ -45,7 +46,7 @@ public class TripBookingServiceImpl implements ITripBookingService {
 
 	
 	@Override
-	public TripBooking updateTripBooking(TripBooking tripBooking) {
+	public TripBooking updateTripBooking(TripBooking tripBooking) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException{
 
 		if(tripBooking.getTripBookingId()==0)
 			throw new TripBookingNotFoundException("Trip Booking ID cannot be empty or 0");
@@ -58,7 +59,7 @@ public class TripBookingServiceImpl implements ITripBookingService {
 
 		TripBooking tripBooking2 = tripBooking1.get();
 		// update section
-		tripBooking2.setCustomerId(tripBooking.getCustomerId());
+		tripBooking2.setCustomer(tripBooking.getCustomer());
 		tripBooking2.setDriver(tripBooking.getDriver());
 		tripBooking2.setFromLocation(tripBooking.getFromLocation());
 		tripBooking2.setToLocation(tripBooking.getToLocation());
@@ -75,7 +76,7 @@ public class TripBookingServiceImpl implements ITripBookingService {
 
 	
 	@Override
-	public TripBooking deleteTripBooking(int tripBookingId) {
+	public TripBooking deleteTripBooking(int tripBookingId) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException{
 		
 		if(tripBookingId==0)
 			throw new TripBookingNotFoundException("Trip Booking ID cannot be empty or 0");
@@ -93,14 +94,17 @@ public class TripBookingServiceImpl implements ITripBookingService {
 
 	
 	@Override
-	public List<TripBooking> viewAllTripsCustomer(int customerId) {
-		
-		return tripBookingRepository.viewAllTripsCustomer(customerId);
+	public List<TripBooking> viewAllTripsCustomer(int customerId) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException{
+		List<TripBooking> trips = tripBookingRepository.viewAllTripsCustomer(customerId);
+		if(trips.isEmpty()) {
+			throw new TripBookingNotFoundException("Trip Booking Not Found!");
+		}
+		return trips;
 	}
 
 	
 	@Override
-	public TripBooking calculateBill(int tripBookingId) {
+	public TripBooking calculateBill(int tripBookingId) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException{
 		
 		if(tripBookingId==0)
 			throw new TripBookingNotFoundException("Trip Booking ID cannot be empty or 0");

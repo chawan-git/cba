@@ -11,8 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -32,11 +32,10 @@ public class TripBooking {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int tripBookingId;
 	
-	@Column(nullable = false)
-	private int customerId;
+	@OneToOne(fetch = FetchType.EAGER, targetEntity = Customer.class)
+	private Customer customer;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "driver_fk")
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Driver driver;
 	
 	@Column(nullable = false)
@@ -52,11 +51,11 @@ public class TripBooking {
 	@JsonFormat(pattern = "yyyy-MM-dd H:m:s")
 	@Column(nullable = false)
 	private LocalDateTime toDateTime; 
-	
+	@Column
 	private boolean status;
-	
+	@Column
 	private float distanceInKm;
-	
+	@Column
 	private float bill;	
 	
 }

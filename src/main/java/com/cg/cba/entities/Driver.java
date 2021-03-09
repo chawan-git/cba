@@ -5,6 +5,9 @@ package com.cg.cba.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -24,14 +27,13 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Driver extends AbstractUser{
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int driverId;
 	@Column(unique = true, nullable = false)
 	private String licenseNo;
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	private Cab cab;
 	@Column
 	private float rating;
-	
-
 
 }
