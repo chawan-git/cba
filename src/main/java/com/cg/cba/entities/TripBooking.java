@@ -29,7 +29,7 @@ import lombok.Setter;
 public class TripBooking {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int tripBookingId;
 	
 	@OneToOne(fetch = FetchType.EAGER, targetEntity = Customer.class)

@@ -27,7 +27,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Driver extends AbstractUser{
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int driverId;
 	@Column(unique = true, nullable = false)
 	private String licenseNo;

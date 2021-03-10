@@ -22,6 +22,6 @@ import lombok.Setter;
 @Setter
 public class Customer extends AbstractUser{
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int customerId;
 }
