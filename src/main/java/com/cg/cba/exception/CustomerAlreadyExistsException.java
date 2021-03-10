@@ -1,6 +1,6 @@
 package com.cg.cba.exception;
 
-public class CustomerAlreadyExistsException extends Exception{
+public class CustomerAlreadyExistsException extends RuntimeException{
 
 	/**
 	 * 
@@ -9,5 +9,9 @@ public class CustomerAlreadyExistsException extends Exception{
 
 	public CustomerAlreadyExistsException(String message){
 		super(message);
+	}
+	
+	public CustomerAlreadyExistsException() {
+		
 	}
 }

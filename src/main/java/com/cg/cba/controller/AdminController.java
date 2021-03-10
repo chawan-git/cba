@@ -6,7 +6,10 @@ package com.cg.cba.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,19 +28,32 @@ import com.cg.cba.exception.AdminAlreadyExsistsException;
 import com.cg.cba.exception.AdminNotFoundException;
 import com.cg.cba.service.AdminServiceImpl;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * @author arc
  *
  */
+
+//Controller EndPoint for Admin
+@Api(value = "Admin Controller", description = "REST API for Admin Entity")
 @RestController
-@RequestMapping(path = "api/v1/admin")
+@RequestMapping(path = "/api/v1/admin")
 public class AdminController {
 	
+	//Initialising the Logger
+	private static final Logger log = LogManager.getLogger(AdminController.class);
+	
+	//Loose coupling the Admin Service Implementation Class
 	@Autowired
 	private AdminServiceImpl adminService;
 
+	//End Point for Inserting an admin
+	@ApiOperation(value = "Insert Admin")
 	@PostMapping(path = "insertAdmin")
 	public ResponseEntity<Admin> insertAdmin(@RequestBody Admin admin) throws AdminAlreadyExsistsException{
+		log.info("Controller Triggered");
 		Admin admin1 = adminService.insertAdmin(admin);
 		
 		ResponseEntity<Admin> responseEntity = new ResponseEntity<Admin>(admin1,HttpStatus.CREATED);
@@ -45,52 +61,72 @@ public class AdminController {
 		
 	}
 	
+	//End Point for Updating an admin
+	@ApiOperation(value = "Update Admin")
 	@PutMapping(path = "updateAdmin")
 	public ResponseEntity<Admin> updateAdmin(@RequestBody Admin admin) throws AdminNotFoundException{
+		log.info("Controller Triggered");
 		Admin admin1 = adminService.updateAdmin(admin);
 		
 		ResponseEntity<Admin> responseEntity = new ResponseEntity<Admin>(admin1,HttpStatus.OK);
 		return responseEntity;
 	}
 	
+	//End Point for Deleting an admin
+	@ApiOperation(value = "Delete Admin")
 	@DeleteMapping(path = "deleteAdmin/{id}")
 	public ResponseEntity<Admin> deleteAdmin(@PathVariable int id) throws AdminNotFoundException{
+		log.info("Controller Triggered");
 		Admin admin1 = adminService.deleteAdmin(id);
 		ResponseEntity<Admin> responseEntity = new ResponseEntity<Admin>(admin1,HttpStatus.OK);
 		return responseEntity;
 	}
 	
+	//End Point for Getting All Trips for a particular customer Id
+	@ApiOperation(value = "Get All Trips for a particular customer based on customer Id")
 	@GetMapping(path = "getAllTrips/{id}")
 	public ResponseEntity<List<TripBooking>> getAllTrips(@PathVariable int id){
+		log.info("Controller Triggered");
 		List<TripBooking> trips = adminService.getAllTrips(id);
 		ResponseEntity<List<TripBooking>> responseEntity = new ResponseEntity<List<TripBooking>>(trips,HttpStatus.OK);
 		return responseEntity;
 	}
-	
+	//End Point for Getting All Trips Cab Wise
+	@ApiOperation(value = "Get All Trips Cabwise")
 	@GetMapping(path = "getTripsCabwise")
 	public ResponseEntity<List<TripBooking>> getTripsCabwise(){
+		log.info("Controller Triggered");
 		List<TripBooking> trips = adminService.getTripsCabwise();
 		ResponseEntity<List<TripBooking>> responseEntity = new ResponseEntity<List<TripBooking>>(trips,HttpStatus.OK);
 		return responseEntity;
 	}
 	
+	//End Point for Getting All Trips Customer Wise
+	@ApiOperation(value = "Get All Trips Customerwise")
 	@GetMapping(path = "getTripsCustomerwise")
 	public ResponseEntity<List<TripBooking>> getTripsCustomerwise(){
+		log.info("Controller Triggered");
 		List<TripBooking> trips = adminService.getTripsCustomerwise();
 		ResponseEntity<List<TripBooking>> responseEntity = new ResponseEntity<List<TripBooking>>(trips,HttpStatus.OK);
 		return responseEntity;
 	}
 	
+	//End Point for Getting All Trips Date Wise
+	@ApiOperation(value = "Get All Trips Datewise")
 	@GetMapping(path = "getTripsDatewise")
 	public ResponseEntity<List<TripBooking>> getTripsDatewise(){
+		log.info("Controller Triggered");
 		List<TripBooking> trips = adminService.getTripsDatewise();
 		ResponseEntity<List<TripBooking>> responseEntity = new ResponseEntity<List<TripBooking>>(trips,HttpStatus.OK);
 		return responseEntity;
 	}
 	
+	//End Point for Getting All Trips for a particular customer id & particular time frame
+	@ApiOperation(value = "Get All Trips for a particular customer & particular time frame based on customer Id")
 	@GetMapping(path = "getAllTripsForDays")
-	public ResponseEntity<List<TripBooking>> getAllTripsForDays(@RequestParam(name = "customerId") int customerId, @RequestParam(name = "fromDate") LocalDateTime fromDate, @RequestParam(name = "toDate") LocalDateTime toDate){
-		List<TripBooking> trips = adminService.getAllTripsForDays(customerId,fromDate,toDate);
+	public ResponseEntity<List<TripBooking>> getAllTripsForDays(@RequestParam(name = "customerId") int customerId, @RequestParam(name = "fromDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fromDateTime, @RequestParam(name = "toDateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime toDateTime){
+		log.info("Controller Triggered");
+		List<TripBooking> trips = adminService.getAllTripsForDays(customerId,fromDateTime,toDateTime);
 		ResponseEntity<List<TripBooking>> responseEntity = new ResponseEntity<List<TripBooking>>(trips,HttpStatus.OK);
 		return responseEntity;
 	}

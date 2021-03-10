@@ -7,7 +7,9 @@ package com.cg.cba.exception;
  * @author arc
  *
  */
-public class AdminNotFoundException extends Exception{
+
+//An exception that should be thrown when an admin is not found
+public class AdminNotFoundException extends RuntimeException{
 
 	/**
 	 * 
@@ -18,4 +20,7 @@ public class AdminNotFoundException extends Exception{
 		super(message);
 	}
 
+	public AdminNotFoundException() {
+		
+	}
 }

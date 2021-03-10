@@ -1,5 +1,6 @@
 package com.cg.cba.exception;
 
+//An Exception to be thrown when Customer is not found
 public class CabNotFoundException extends RuntimeException {
 
     /**

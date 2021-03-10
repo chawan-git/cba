@@ -1,6 +1,6 @@
 package com.cg.cba.exception;
 
-public class TripAlreadyExistsException extends Exception{
+public class TripAlreadyExistsException extends RuntimeException{
 
 	/**
 	 * 
@@ -10,4 +10,8 @@ public class TripAlreadyExistsException extends Exception{
 	public TripAlreadyExistsException(String message){
 		super(message);
 	}
+	
+	public TripAlreadyExistsException() {
+	}
+	
 }

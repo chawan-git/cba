@@ -1,6 +1,6 @@
 package com.cg.cba.exception;
 
-public class UserCredentialsInvalidException extends Exception{
+public class UserCredentialsInvalidException extends RuntimeException{
 
 	/**
 	 * 
@@ -9,5 +9,9 @@ public class UserCredentialsInvalidException extends Exception{
 
 	public UserCredentialsInvalidException(String message) {
 		super(message);
+	}
+	
+	public UserCredentialsInvalidException() {
+		
 	}
 }

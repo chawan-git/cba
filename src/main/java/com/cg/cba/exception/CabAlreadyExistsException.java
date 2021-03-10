@@ -1,6 +1,7 @@
 package com.cg.cba.exception;
 
-public class CabAlreadyExistsException extends Exception{
+//An exception to be thrown when cab already exists
+public class CabAlreadyExistsException extends RuntimeException{
 	/**
 	 * 
 	 */
@@ -8,5 +9,9 @@ public class CabAlreadyExistsException extends Exception{
 
 	public CabAlreadyExistsException(String message) {
 		super(message);
+	}
+	
+	public CabAlreadyExistsException() {
+		
 	}
 }

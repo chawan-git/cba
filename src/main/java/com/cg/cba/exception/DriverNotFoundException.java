@@ -1,13 +1,17 @@
 package com.cg.cba.exception;
 
-public class DriverNotFoundException extends Exception{
+//User defined unchecked exception class whose object is thrown intentionally when driver with given Id is not present in the database table.
+public class DriverNotFoundException extends RuntimeException{
 	/**
-	 * 
+	 * Bharat Singh
 	 */
+	
+	public DriverNotFoundException() {
+		
+	}
 	private static final long serialVersionUID = 1L;
 
 	public DriverNotFoundException(String message) {
-		// TODO Auto-generated constructor stub
 		super(message);
 	}
 }

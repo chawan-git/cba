@@ -8,6 +8,7 @@ import java.util.List;
 import com.cg.cba.entities.Customer;
 import com.cg.cba.exception.CustomerAlreadyExistsException;
 import com.cg.cba.exception.CustomerNotFoundException;
+//ICustomerRepository is defined to hold the declarations of repository methods.
 public interface ICustomerService {
 	public Customer insertCustomer(Customer customer) throws CustomerAlreadyExistsException;
 	public Customer updateCustomer(Customer customer) throws CustomerNotFoundException;

@@ -11,9 +11,11 @@ import org.springframework.stereotype.Repository;
 
 import com.cg.cba.entities.TripBooking;
 
+//Defining ITripBookingRepository Interface extending JpaRepository which provides CRUD operations 
 @Repository
 public interface ITripBookingRepository extends JpaRepository<TripBooking, Integer> {
 
+	//performing SQL Query in data base to select all TripBookings taken by customer based upon customerId
 	@Query("SELECT trip FROM TripBooking trip, Customer customer WHERE customer.customerId = ?1")
 	public List<TripBooking> viewAllTripsCustomer(int customerId);
 	
