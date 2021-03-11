@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -37,14 +38,18 @@ public class Cab {
 	 * we can add the @GeneratedValue annotation.
 	 */
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Pattern(regexp = "[0-9]", message = "Invalid Id number")
 	int cabId;
+	
 	@ApiModelProperty(required = true, example = "SUV")
 	//The Column annotation is used to specify the mapped column for a persistent property or field
 	@Column
+	@Pattern(regexp = "[a-zA-Z0-9]", message ="Invalid CarType")
 	String carType;
 	@ApiModelProperty(required = true, example = "11.0")
 	@NotNull
 	@Column
+	@Pattern(regexp ="^(\\d+(\\.\\d{0,2})?|\\.?\\d{1,2})$", message = "not a valid entry")
 	float perKmRate;
 	
 }

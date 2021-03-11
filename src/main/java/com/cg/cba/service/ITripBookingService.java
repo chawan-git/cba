@@ -17,6 +17,9 @@ public interface ITripBookingService {
 	
 	public TripBooking insertTripBooking(TripBooking tripBooking) throws TripAlreadyExistsException,CustomerNotFoundException, DriverNotFoundException;
 	public TripBooking updateTripBooking(TripBooking tripBooking) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException;
+	public TripBooking insertTripBooking1(TripBooking tripBooking) throws TripAlreadyExistsException,CustomerNotFoundException, DriverNotFoundException;
+	public TripBooking updateTripBooking1(TripBooking tripBooking) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException;
+	
 	public TripBooking deleteTripBooking(int tripBookingID) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException;;
 	public List<TripBooking> viewAllTripsCustomer(int tripBookingID) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException;;
 	public TripBooking calculateBill(int tripBookingId) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException;;

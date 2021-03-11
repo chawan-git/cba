@@ -40,10 +40,24 @@ public class AdminServiceImpl implements IAdminService {
 	public Admin insertAdmin(Admin admin) throws AdminAlreadyExsistsException {
 		// TODO Auto-generated method stub
 		log.info("Service Triggered");
+		
 		Optional<Admin> admin1 = adminRepository.findById(admin.getAdminId());
 		if(admin1.isPresent()) {
 			log.error("Insert Failed! Admin with ID: "+admin.getAdminId()+" already exists!");
 			throw new AdminAlreadyExsistsException("Insert Failed! Admin with ID: "+admin.getAdminId()+" already exists!");
+		}
+		
+		Admin admin2 = adminRepository.findByEmail(admin.getEmail());
+		if(admin2 != null) {
+			throw new AdminAlreadyExsistsException("Insert Failed! Admin with Email "+admin.getEmail()+" already exists!");
+		}
+		admin2 = adminRepository.findByUsername(admin.getUsername());
+		if(admin2 != null) {
+			throw new AdminAlreadyExsistsException("Insert Failed! Admin with Username "+admin.getUsername()+" already exists!");
+		}
+		admin2 = adminRepository.findByMobileNumber(admin.getMobileNumber());
+		if(admin2 != null) {
+			throw new AdminAlreadyExsistsException("Insert Failed! Admin with Mobile Number "+admin.getMobileNumber()+" already exists!");
 		}
 		return adminRepository.save(admin);
 	}

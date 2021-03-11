@@ -5,6 +5,7 @@ package com.cg.cba.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.cba.entities.Customer;
 import com.cg.cba.exception.CustomerAlreadyExistsException;
+import com.cg.cba.exception.InvalidInputException;
 import com.cg.cba.service.CustomerServiceImpl;
 import com.cg.cba.service.ICustomerService;
 
@@ -36,6 +38,23 @@ public class CustomerController {
 	// Loosely coupling the Customer Service Interface
 	@Autowired
 	private ICustomerService customerService;
+	
+	//Method for checking the input whether it is a valid input or not
+	public void validateInput(Customer customer) {
+		if(customer == null || customer.getUsername() == null || customer.getPassword() == null || customer.getMobileNumber() == null || customer.getEmail() == null || customer.getUsername().equals("")) {
+			throw new InvalidInputException("customer Details can't be null");
+		}
+		if(!Pattern.compile(".{6}.*").matcher(customer.getPassword()).find()) {
+			throw new InvalidInputException("Invalid Password format! Min 6 characters required");
+		}
+		if(!Pattern.compile("(0/91)?[6-9][0-9]{9}").matcher(customer.getMobileNumber()).find()) {
+			throw new InvalidInputException("Enter a valid Mobile Number");
+		}
+		if(!Pattern.compile("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-].[a-zA-Z0-9.-]+$").matcher(customer.getEmail()).find()) {
+			throw new InvalidInputException("Enter a valid Email Address");
+		}
+		
+	}
 
 	//Creating a Logger Object to perform Log Operations
 	private static final Logger log = LogManager.getLogger(CustomerServiceImpl.class);
@@ -45,6 +64,7 @@ public class CustomerController {
 	@PostMapping(value = "insertCustomer")
 	public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) throws CustomerAlreadyExistsException {
 		log.info("Controller Triggered");
+		validateInput(customer);
 		Customer customer1 = customerService.insertCustomer(customer);
 		return new ResponseEntity<Customer>(customer1,HttpStatus.CREATED);
 	}
@@ -83,6 +103,7 @@ public class CustomerController {
 	@PutMapping(value = "updateCustomer/{cid}")
 	public ResponseEntity<Customer> updateCustomer(@RequestBody Customer cust1, @PathVariable Integer cid) {
 		log.info("Controller Triggered");
+		validateInput(cust1);
 		Customer customer1 = customerService.viewCustomer(cid);
 		customer1.setUsername(cust1.getUsername());
 		customer1.setPassword(cust1.getPassword());
@@ -100,6 +121,9 @@ public class CustomerController {
 	@PostMapping("validateCustomer")
 	public Customer ValidateCustomer(@RequestBody Map<String, String> userMap) {
 		log.info("Controller Triggered");
+		if(userMap.get("username") == null || userMap.get("username").equals("") || userMap.get("password") == null || userMap.get("password").equals("")) {
+			throw new InvalidInputException("Username or Password cannot be null!");
+		}
 		String username = userMap.get("username");
 		String password = userMap.get("password");
 		return customerService.validateCustomer(username, password);

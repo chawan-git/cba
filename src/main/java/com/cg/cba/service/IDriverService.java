@@ -22,7 +22,11 @@ public interface IDriverService {
 
 	public Driver insertDriver(Driver driver) throws DriverAlreadyExistsException, CabNotFoundException;
 
+	public Driver insertDriver1(Driver driver) throws DriverAlreadyExistsException, CabNotFoundException;
+
 	public Driver updateDriver(Driver driver) throws DriverNotFoundException, CabNotFoundException;
+
+	public Driver updateDriver1(Driver driver) throws DriverNotFoundException, CabNotFoundException;
 
 	public Driver deleteDriver(int driverId) throws DriverNotFoundException, CabNotFoundException;
 	

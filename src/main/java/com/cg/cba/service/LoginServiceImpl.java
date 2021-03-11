@@ -40,7 +40,7 @@ public class LoginServiceImpl implements ILoginService{
 	
 	//Method to validate the user and return the user type
 	@Override
-	public String validateUser(String username, String password) throws UserCredentialsInvalidException {
+	public String signIn(String username, String password) throws UserCredentialsInvalidException {
 		// TODO Auto-generated method stub
 		//customer class
 		List<Customer> customerList = customerRepository.findAll();
@@ -81,5 +81,49 @@ public class LoginServiceImpl implements ILoginService{
 		log.error("Invalid Credentials");
 		throw new UserCredentialsInvalidException("Invalid Credentials!");
 		
+	}
+
+
+	@Override
+	public String signOut(String username, String password) throws UserCredentialsInvalidException {
+		// TODO Auto-generated method stub
+		//customer class
+				List<Customer> customerList = customerRepository.findAll();
+				for(Customer c : customerList) {
+					
+					if(c.getUsername().equals(username)) {
+						
+						
+						if(c.getPassword().equals(password)) {
+							log.info("Customer Found");
+							return "Customer";
+							
+						}
+					}
+				}
+				
+				List<Driver> driverList = driverRepository.findAll();
+				for(Driver d : driverList) {
+					if(d.getUsername().equals(username)) {
+										
+						if(d.getPassword().equals(password)) {
+							log.info("Driver Found");
+							return "Driver";
+						}
+					}
+				}
+				
+				List<Admin> adminList = adminRepository.findAll();
+				for(Admin a: adminList) {
+					if(a.getUsername().equals(username)) {
+						
+						if(a.getPassword().equals(password)) {
+							log.info("Admin Found");
+							return "Admin";
+						}
+					}
+				}
+				log.error("Invalid Credentials");
+				throw new UserCredentialsInvalidException("Invalid Credentials!");
 	}
 }

@@ -22,4 +22,10 @@ public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 	// This method will fetch customer data based on the custId from database.
 	@Query("SELECT customer FROM Customer customer WHERE customerId = ?1")
 	public Customer viewCustomer(int customerId);
+	@Query("SELECT customer FROM Customer customer WHERE customer.email = ?1")
+	public Customer findByEmail(String email);
+	@Query("SELECT customer FROM Customer customer WHERE customer.username = ?1")
+	public Customer findByUsername(String username);
+	@Query("SELECT customer FROM Customer customer WHERE customer.mobileNumber = ?1")
+	public Customer findByMobileNumber(String mobileNumber);
 }

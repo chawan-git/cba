@@ -5,6 +5,7 @@ package com.cg.cba.controller;
 
 import com.cg.cba.entities.Cab;
 import com.cg.cba.exception.CabAlreadyExistsException;
+import com.cg.cba.exception.InvalidInputException;
 import com.cg.cba.service.CabServiceImpl;
 import com.cg.cba.service.ICabService;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 /* This would signify that we are in cab controller right now */
 @RequestMapping(path="/api/v1/cab")
@@ -34,26 +36,41 @@ public class CabController {
 	private static final Logger log = LogManager.getLogger(CabServiceImpl.class);
 	
     @Autowired
-    ICabService cabService;
-    //Start point for inserting the cab
+    private ICabService cabService;
+    
+    //Method for checking the input whether it is a valid input or not
+  	public void validateInput(Cab cab) {
+  		if(cab == null | cab.getCabId() == 0 || cab.getCarType() == null || cab.getCarType().equals("") || cab.getPerKmRate() == 0.0) {
+  			throw new InvalidInputException("Car details can't be null");
+  		}
+  		if(!Pattern.compile("[a-zA-Z]").matcher(cab.getCarType()).find()){
+  			throw new InvalidInputException("Invalid Car Type format!");
+  				}
+  		if(!Pattern.compile("[0-9+_.-]+").matcher(Float.toString(cab.getPerKmRate())).find()) {
+			throw new InvalidInputException("Enter a valid Rate for Cab");
+		  }
+  	}
+    //End point for inserting the cab
     @ApiOperation(value = "Insert Cab")
     @PostMapping(path="insertCab")
     public ResponseEntity<Cab> insertCab(@RequestBody Cab cab) throws CabAlreadyExistsException {
     	log.info("Controller Triggered");
+    	validateInput(cab);
     	Cab cab1 = cabService.insertCab(cab);
         ResponseEntity<Cab> responseEntity = new ResponseEntity<Cab>(cab1,HttpStatus.CREATED);
         return responseEntity;
     }
-    //start point for updating the cab
+    //End point for updating the cab
     @ApiOperation(value = "Update Cab")
     @PutMapping(path="updateCab")
     public ResponseEntity<Cab> updateCab(@RequestBody Cab cab) throws CabAlreadyExistsException {
     	log.info("Controller Triggered");
+    	validateInput(cab);
     	Cab cab1 = cabService.updateCab(cab);
         ResponseEntity<Cab> responseEntity = new ResponseEntity<Cab>(cab1,HttpStatus.OK);
         return responseEntity;
     }
-    //start point for deleting the cabs
+    //end point for deleting the cabs
     @ApiOperation(value = "Delete Cab")
     @DeleteMapping(path="deleteCab/{id}")
     public ResponseEntity<Cab> deleteCab(@PathVariable int id) {

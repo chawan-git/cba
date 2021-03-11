@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.cba.exception.InvalidInputException;
 import com.cg.cba.exception.UserCredentialsInvalidException;
 import com.cg.cba.service.ILoginService;
 
@@ -40,15 +41,32 @@ public class LoginController {
 	private ILoginService loginService;
 	
 	//Method to validate the User
-	@ApiOperation(value = "Validate User")
-	@PostMapping( value = "validateUser")
-	public ResponseEntity<String> validateUser(@RequestBody Map<String, String> userMap) throws UserCredentialsInvalidException
+	@ApiOperation(value = "Sign In")
+	@PostMapping( value = "signIn")
+	public ResponseEntity<String> signIn(@RequestBody Map<String, String> userMap) throws UserCredentialsInvalidException
 	{
 		
 		Log.info("Controller Triggerd");
-		String result=loginService.validateUser(userMap.get("username"),userMap.get("password"));
+		if(userMap.get("username") == null || userMap.get("username").equals("") || userMap.get("password") == null || userMap.get("password").equals("")) {
+			throw new InvalidInputException("Username or Password cannot be null!");
+		}
+		String result=loginService.signIn(userMap.get("username"),userMap.get("password"));
 		return new ResponseEntity<String>(result,HttpStatus.OK);
 			
 	}
 	
+	//Method to validate the User
+	@ApiOperation(value = "Sign Out")
+	@PostMapping( value = "signOut")
+	public ResponseEntity<String> signOut(@RequestBody Map<String, String> userMap) throws UserCredentialsInvalidException
+	{
+		
+		Log.info("Controller Triggerd");
+		if(userMap.get("username") == null || userMap.get("username").equals("") || userMap.get("password") == null || userMap.get("password").equals("")) {
+			throw new InvalidInputException("Username or Password cannot be null!");
+		}
+		String result=loginService.signIn(userMap.get("username"),userMap.get("password"));
+		return new ResponseEntity<String>(result,HttpStatus.OK);
+			
+	}
 }

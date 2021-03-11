@@ -65,7 +65,7 @@ public class DriverServiceTest {
 	public void testInsertDriver() throws CabNotFoundException, DriverAlreadyExistsException {
 		
 		when(driverRepository.save(driver)).thenReturn(driver);
-		assertEquals(driver, driverService.insertDriver(driver));
+		assertEquals(driver, driverService.insertDriver1(driver));
 	}
 
 	// Test method to test functionality of updateDriver Method.
@@ -73,7 +73,7 @@ public class DriverServiceTest {
 	public void testUpdatedriver() throws CabNotFoundException, DriverNotFoundException {
 		when(driverRepository.save(driver)).thenReturn(driver);
 		when(driverRepository.findById(driver.getDriverId())).thenReturn(Optional.of(driver));
-		assertEquals(driver, driverService.updateDriver(driver));
+		assertEquals(driver, driverService.updateDriver1(driver));
 	}
 
 	// Test method to test functionality of deleteDriver Method.

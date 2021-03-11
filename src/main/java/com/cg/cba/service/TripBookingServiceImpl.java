@@ -8,15 +8,21 @@ import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.cba.entities.Cab;
+import com.cg.cba.entities.Customer;
+import com.cg.cba.entities.Driver;
 import com.cg.cba.entities.TripBooking;
 import java.util.Optional;
 import java.util.List;
 
+import com.cg.cba.exception.CabNotFoundException;
 import com.cg.cba.exception.CustomerNotFoundException;
 import com.cg.cba.exception.DriverNotFoundException;
 import com.cg.cba.exception.TripAlreadyExistsException;
 import com.cg.cba.exception.TripBookingNotFoundException;
-import com.cg.cba.exception.ZeroDistanceException;
+import com.cg.cba.repository.ICabRepository;
+import com.cg.cba.repository.ICustomerRepository;
+import com.cg.cba.repository.IDriverRepository;
 import com.cg.cba.repository.ITripBookingRepository;
 
 //service class implementing all the methods of ITripBookingService
@@ -26,59 +32,98 @@ public class TripBookingServiceImpl implements ITripBookingService {
 	//Creating a Logger Object to perform Log Operations
 	private final static Logger log = LogManager.getLogger(TripBookingServiceImpl.class);
 	
-	//Performing ITripBookingRepository injection to a variable
+	//Performing injections to a variables
 	@Autowired
 	private ITripBookingRepository tripBookingRepository;
+	@Autowired
+	private IDriverRepository driverRepository;
+	@Autowired
+	private ICabRepository cabRepository;
+	@Autowired
+	private ICustomerRepository customerRepository; 
 
+	
+	
 	// Method to insert a TripBooking and returns inserted TripBooking Object
 	@Override
 	public TripBooking insertTripBooking(TripBooking tripBooking) throws TripAlreadyExistsException, CustomerNotFoundException, DriverNotFoundException {
 		
 		log.info("insertTripBooking service got excuted");
 		
-		if(tripBooking.getCustomer().getCustomerId()==0) {
+		//Exception Handling
+		if(tripBooking == null) {
 			log.error("TripBookingNotFoundException");
-			throw new CustomerNotFoundException("Cutomer Id cannot be empty or 0");
+			throw new TripBookingNotFoundException("Empty Trip Booking Fields detected");
 		}
-
-		
-		if(tripBooking.getDistanceInKm()==0) {
-			log.error("TripBookingNotFoundException");
-			throw new ZeroDistanceException("Distance cannot be empty or 0");
-
-		}
-		
 		Optional<TripBooking> tripBooking1 = tripBookingRepository.findById(tripBooking.getTripBookingId());
-		
 		if(tripBooking1.isPresent()) {
 			throw new TripAlreadyExistsException("Trip with ID "+tripBooking.getTripBookingId()+" already exists");
 		}
+		
+		//checking the details of customer, driver and cab provided
+		constraintCheck(tripBooking);
+		
+		if(tripBooking.getBill()==0)
+		{
+			float perKmRate = tripBooking.getDriver().getCab().getPerKmRate();
+			float distance = tripBooking.getDistanceInKm();				
+			tripBooking.setBill(distance*perKmRate);
+		}
+		
+		//saving to database
 		TripBooking tb = tripBookingRepository.save(tripBooking);
-		
 		return tb;
+	}
+	
+	public TripBooking insertTripBooking1(TripBooking tripBooking) throws TripAlreadyExistsException, CustomerNotFoundException, DriverNotFoundException {
 		
+		log.info("insertTripBooking service got excuted");
+		
+		//Exception Handling
+		if(tripBooking == null) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Empty Trip Booking Fields detected");
+		}
+		Optional<TripBooking> tripBooking1 = tripBookingRepository.findById(tripBooking.getTripBookingId());
+		if(tripBooking1.isPresent()) {
+			throw new TripAlreadyExistsException("Trip with ID "+tripBooking.getTripBookingId()+" already exists");
+		}
+		
+		//checking the details of customer, driver and cab provided
+//		constraintCheck(tripBooking);
+		
+		if(tripBooking.getBill()==0)
+		{
+			float perKmRate = tripBooking.getDriver().getCab().getPerKmRate();
+			float distance = tripBooking.getDistanceInKm();				
+			tripBooking.setBill(distance*perKmRate);
+		}
+		
+		//saving to database
+		TripBooking tb = tripBookingRepository.save(tripBooking);
+		return tb;
 	}
 
+	
+	
 	// Method to update a TripBooking using tripBookingID  and returns updated TripBooking Object	
 	@Override
 	public TripBooking updateTripBooking(TripBooking tripBooking) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException {
 		
 		log.info("updateTripBooking service got excuted");
-
-		if(tripBooking.getTripBookingId()==0) {
+		
+		//Exception Handling
+		if(tripBooking.getTripBookingId() == 0) {
 			log.error("TripBookingNotFoundException");
-			throw new TripBookingNotFoundException("Trip Booking ID cannot be empty or 0");
-
+			throw new TripBookingNotFoundException("Empty Trip Booking Fields detected");
 		}
-		
 		Optional<TripBooking> tripBooking1 = tripBookingRepository.findById(tripBooking.getTripBookingId());
-		
-		if(!tripBooking1.isPresent()) {
+		if(!tripBooking1.isPresent() || tripBooking == null) {
 			log.error("TripBookingNotFoundException");
 			throw new TripBookingNotFoundException("Trip with ID "+tripBooking.getTripBookingId()+" not found.");
 		}
-
 		TripBooking tripBooking2 = tripBooking1.get();
+		
 		// update section
 		tripBooking2.setCustomer(tripBooking.getCustomer());
 		tripBooking2.setDriver(tripBooking.getDriver());
@@ -90,37 +135,87 @@ public class TripBookingServiceImpl implements ITripBookingService {
 		tripBooking2.setDistanceInKm(tripBooking.getDistanceInKm());
 		tripBooking2.setBill(tripBooking.getBill());
 		
+		//checking the details of customer, driver and cab provided
+		constraintCheck(tripBooking);
+		
+		if(tripBooking.getBill()==0)
+		{
+			float perKmRate = tripBooking.getDriver().getCab().getPerKmRate();
+			float distance = tripBooking.getDistanceInKm();				
+			tripBooking2.setBill(distance*perKmRate);
+		}
+		
+		//saving to database
 		tripBookingRepository.save(tripBooking2);
-
 		return tripBooking2;
 	}
 
-	// Method to Delete a TripBooking using tripBookingID  and returns same TripBooking Object
+	public TripBooking updateTripBooking1(TripBooking tripBooking) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException {
+		
+		log.info("updateTripBooking service got excuted");
+		
+		//Exception Handling
+		if(tripBooking.getTripBookingId() == 0) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Empty Trip Booking Fields detected");
+		}
+		Optional<TripBooking> tripBooking1 = tripBookingRepository.findById(tripBooking.getTripBookingId());
+		if(!tripBooking1.isPresent() || tripBooking == null) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Trip with ID "+tripBooking.getTripBookingId()+" not found.");
+		}
+		TripBooking tripBooking2 = tripBooking1.get();
+		
+		// update section
+		tripBooking2.setCustomer(tripBooking.getCustomer());
+		tripBooking2.setDriver(tripBooking.getDriver());
+		tripBooking2.setFromLocation(tripBooking.getFromLocation());
+		tripBooking2.setToLocation(tripBooking.getToLocation());
+		tripBooking2.setFromDateTime(tripBooking.getFromDateTime());
+		tripBooking2.setToDateTime(tripBooking.getToDateTime());
+		tripBooking2.setStatus(tripBooking.isStatus());
+		tripBooking2.setDistanceInKm(tripBooking.getDistanceInKm());
+		tripBooking2.setBill(tripBooking.getBill());
+		
+		//checking the details of customer, driver and cab provided
+//		constraintCheck(tripBooking);
+		
+		if(tripBooking.getBill()==0)
+		{
+			float perKmRate = tripBooking.getDriver().getCab().getPerKmRate();
+			float distance = tripBooking.getDistanceInKm();				
+			tripBooking2.setBill(distance*perKmRate);
+		}
+		
+		//saving to database
+		tripBookingRepository.save(tripBooking2);
+		return tripBooking2;
+	}
+	
+	//Method to Delete a TripBooking using tripBookingID  and returns same TripBooking Object
 	@Override
 	public TripBooking deleteTripBooking(int tripBookingId) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException {
 		
 		log.info("deleteTripBooking method got excuted from service layer");
 
+		//Exception handling
 		if(tripBookingId==0) {
 			log.error("TripBookingNotFoundException");
 			throw new TripBookingNotFoundException("Trip Booking ID cannot be empty or 0");
 		}
-
-		
 		Optional<TripBooking> tripBooking1 = tripBookingRepository.findById(tripBookingId);
-		
 		if(!tripBooking1.isPresent()) {
 			log.error("TripBookingNotFoundException");
 			throw new TripBookingNotFoundException("Trip with ID "+tripBookingId+" not found.");
-
 		}
-
 		TripBooking tripBooking2 = tripBooking1.get();
+		
+		//Saving to database
 		tripBookingRepository.delete(tripBooking2);
 		return tripBooking2;
 	}
 
-	// Method to view list of TripBookings taken by a customer and returns list of TripBooking Objects
+	//Method to view list of TripBookings taken by a customer and returns list of TripBooking Objects
 	@Override
 	public List<TripBooking> viewAllTripsCustomer(int customerId) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException {
 		
@@ -135,28 +230,24 @@ public class TripBookingServiceImpl implements ITripBookingService {
 	}
 
 	
-	// Method to calculate bill of TripBooking using tripBookingID and returns same TripBooking Object
+	//Method to calculate bill of TripBooking using tripBookingID and returns same TripBooking Object
 	@Override
-	public TripBooking calculateBill(int tripBookingId) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException{
+	public TripBooking calculateBill(int tripBookingId) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException {
 		
 		log.info("calculateBill method got excuted from service layer");
 
-		
+		//Exception Handling
 		if(tripBookingId==0)
 		{
 			log.error("TripBookingNotFoundException");
 			throw new TripBookingNotFoundException("Trip Booking ID cannot be empty or 0");
 		}
 		
-		
 		Optional<TripBooking> tripBooking1 = tripBookingRepository.findById(tripBookingId);
-		
 		if(!tripBooking1.isPresent()) {
 			log.error("TripBookingNotFoundException");
 			throw new TripBookingNotFoundException("Trip with ID "+tripBookingId+" not found.");
-
 		}
-
 		TripBooking tripBooking2 = tripBooking1.get();
 		
 		float perKmRate = tripBooking2.getDriver().getCab().getPerKmRate();
@@ -165,6 +256,74 @@ public class TripBookingServiceImpl implements ITripBookingService {
 		tripBookingRepository.save(tripBooking2);	
 		return tripBooking2;
 		
+	}
+	
+	
+	
+	//checking the details of customer, driver and cab provided
+	public void constraintCheck(TripBooking tripBooking)
+	{
+		//checkingCab(tripBooking);
+		if(tripBooking.getDriver().getCab() == null)
+		{
+			throw new CabNotFoundException("cab details not found");
+		}
+		
+		Optional<Cab> cab1 = cabRepository.findById(tripBooking.getDriver().getCab().getCabId());		
+		Cab cab = cab1.orElseThrow(()->new CustomerNotFoundException("Invalid cab Id"));
+		
+		if(
+				!cab.getCarType().equals(tripBooking.getDriver().getCab().getCarType()) || 
+				cab.getPerKmRate() != tripBooking.getDriver().getCab().getPerKmRate() 
+				) 
+		{
+			throw new CabNotFoundException("cab with given details does not exist");
+		}
+		
+		//checkingCustomer(tripBooking);
+		if(tripBooking.getCustomer() == null)
+		{
+			log.error("CustomerNotFoundException");
+			throw new CustomerNotFoundException("customer with given details not found");
+		}
+		
+		Customer customer = customerRepository.findById(tripBooking.getCustomer().getCustomerId()).get();
+		
+		if(
+				customer.getCustomerId()!= tripBooking.getCustomer().getCustomerId() ||
+				!customer.getUsername().equals(tripBooking.getCustomer().getUsername()) ||
+				!customer.getPassword().equals(tripBooking.getCustomer().getPassword()) ||
+				!customer.getMobileNumber().equals(tripBooking.getCustomer().getMobileNumber()) ||
+				!customer.getEmail().equals(tripBooking.getCustomer().getEmail()) ||
+				!customer.getAddress().equals(tripBooking.getCustomer().getAddress())
+				)
+		{
+			log.error("CustomerNotFoundException");
+			throw new CustomerNotFoundException("customer with given details does not exist");	
+		}
+		
+		//checkingDriver(tripBooking);
+		if(tripBooking.getDriver() == null)
+		{
+			log.error("DriverNotFoundException");
+			throw new CustomerNotFoundException("Driver with given details not found");
+		}
+		Driver driver = driverRepository.findById(tripBooking.getDriver().getDriverId()).get();
+		
+		if(
+				driver.getDriverId()!= tripBooking.getDriver().getDriverId() ||
+				!driver.getUsername().equals(tripBooking.getDriver().getUsername()) ||
+				!driver.getPassword().equals(tripBooking.getDriver().getPassword()) ||
+				!driver.getMobileNumber().equals(tripBooking.getDriver().getMobileNumber()) ||
+				!driver.getEmail().equals(tripBooking.getDriver().getEmail()) ||
+				!driver.getLicenseNo().equals(tripBooking.getDriver().getLicenseNo()) ||
+				driver.getRating() != tripBooking.getDriver().getRating() ||
+				!driver.getAddress().equals(tripBooking.getDriver().getAddress())
+				) {
+			log.error("DriverNotFoundException");
+			throw new DriverNotFoundException("driver with given details does not exist");
+		}
+				
 	}
 	
 }

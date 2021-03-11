@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.cba.entities.TripBooking;
 import com.cg.cba.exception.CustomerNotFoundException;
 import com.cg.cba.exception.DriverNotFoundException;
+import com.cg.cba.exception.InvalidInputException;
 import com.cg.cba.exception.TripAlreadyExistsException;
 import com.cg.cba.exception.TripBookingNotFoundException;
 import com.cg.cba.service.ITripBookingService;
@@ -28,6 +29,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 @RestController
 @RequestMapping(value = "api/v1/tripBooking")
@@ -40,13 +42,25 @@ public class TripBookingController {
 	@Autowired
 	private ITripBookingService tripBookingService;
 
+	//method to validate input data
+	public void validateInput(TripBooking tripBooking)
+	{
+		if(!Pattern.compile("[a-z]").matcher(tripBooking.getFromLocation()).find())
+			throw new InvalidInputException("Invalid From Loaction");
+		if(!Pattern.compile("[A-Za-z]").matcher(tripBooking.getToLocation()).find())
+			throw new InvalidInputException("Invalid To Loaction");
+		if(!Pattern.compile("([1-9]+)").matcher(Float.toString(tripBooking.getDistanceInKm())).find())
+			throw new InvalidInputException("Invalid To Loaction");		
+		
+	}
+	
 	//controller to request insertTripBooking method in service layer
 	@ApiOperation(value = "Used to Insert Trip Booking details and returns the Trip Booking details")
 	@PostMapping(value = "insertTripBooking")
 	public ResponseEntity<TripBooking> insertTripBooking(@RequestBody TripBooking tripBooking) throws TripAlreadyExistsException, CustomerNotFoundException, DriverNotFoundException {
 		
 		log.info("insertTripBooking requested");
-		
+		validateInput(tripBooking);
 		TripBooking tb = tripBookingService.insertTripBooking(tripBooking);
 		return new ResponseEntity<TripBooking>(tb, HttpStatus.OK);
 	}
@@ -57,7 +71,7 @@ public class TripBookingController {
 	public ResponseEntity<TripBooking> updateTripBooking(@RequestBody TripBooking tripBooking) throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
 		
 		log.info("updateTripBooking request is placed from controller");
-
+		validateInput(tripBooking);
 		TripBooking tb = tripBookingService.updateTripBooking(tripBooking);
 		return new ResponseEntity<TripBooking>(tb, HttpStatus.OK);
 	}

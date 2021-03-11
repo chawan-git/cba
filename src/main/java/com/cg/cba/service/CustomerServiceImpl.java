@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.cba.entities.Customer;
+import com.cg.cba.exception.AdminAlreadyExsistsException;
 import com.cg.cba.exception.CustomerAlreadyExistsException;
 import com.cg.cba.exception.CustomerNotFoundException;
 import com.cg.cba.repository.ICustomerRepository;
@@ -37,6 +38,18 @@ public class CustomerServiceImpl implements ICustomerService {
 					"Customer with ID " + customer.getCustomerId() + " already exists!");
 		}
 
+		Customer customer2 = customerRepository.findByEmail(customer.getEmail());
+		if(customer2 != null) {
+			throw new AdminAlreadyExsistsException("Insert Failed! customer with Email "+customer.getEmail()+" already exists!");
+		}
+		customer2 = customerRepository.findByUsername(customer.getUsername());
+		if(customer2 != null) {
+			throw new AdminAlreadyExsistsException("Insert Failed! customer with Username "+customer.getUsername()+" already exists!");
+		}
+		customer2 = customerRepository.findByMobileNumber(customer.getMobileNumber());
+		if(customer2 != null) {
+			throw new AdminAlreadyExsistsException("Insert Failed! customer with Mobile Number "+customer.getMobileNumber()+" already exists!");
+		}
 		return customerRepository.save(customer);
 	}
 
@@ -91,11 +104,13 @@ public class CustomerServiceImpl implements ICustomerService {
 	public Customer viewCustomer(int customerId) throws CustomerNotFoundException {
 		// TODO Auto-generated method stub
 		log.info("Service Triggered");
-		Customer customer = customerRepository.viewCustomer(customerId);
-		if (customer.getCustomerId() < 1 || customer.equals(null))
-			// log.error("No Customer Found!");
+		Optional<Customer> customer = customerRepository.findById(customerId);
+		if (!customer.isPresent()) {
+			 log.error("No Customer Found!");
 			throw new CustomerNotFoundException("Customer Not Found!");
-		return customer;
+		}
+		
+		return customer.get();
 
 	}
 

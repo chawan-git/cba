@@ -94,7 +94,7 @@ public class TripBookingServiceTest {
 	public void testInsertTripBooking() throws CustomerNotFoundException, TripAlreadyExistsException, DriverNotFoundException {
 
 		when(tripBookingRepository.save(tripBooking)).thenReturn(tripBooking);
-		assertEquals(tripBooking, tripBookingService.insertTripBooking(tripBooking));
+		assertEquals(tripBooking, tripBookingService.insertTripBooking1(tripBooking));
 	}
 
 	// test method to check inserting and returning of TripBooking Object
@@ -102,7 +102,8 @@ public class TripBookingServiceTest {
 	public void testUpdateTripBooking()	throws CustomerNotFoundException, TripAlreadyExistsException, DriverNotFoundException {
 
 		when(tripBookingRepository.save(tripBooking)).thenReturn(tripBooking);
-		assertEquals(tripBooking, tripBookingService.insertTripBooking(tripBooking));
+		when(tripBookingRepository.findById(tripBooking.getTripBookingId())).thenReturn(Optional.of(tripBooking));
+		assertEquals(tripBooking, tripBookingService.updateTripBooking1(tripBooking));
 	}
 
 	// test method to check delete and returning of TripBooking Object

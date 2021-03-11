@@ -7,6 +7,7 @@ package com.cg.cba.controller;
 
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +27,7 @@ import com.cg.cba.entities.Driver;
 import com.cg.cba.exception.CabNotFoundException;
 import com.cg.cba.exception.DriverAlreadyExistsException;
 import com.cg.cba.exception.DriverNotFoundException;
+import com.cg.cba.exception.InvalidInputException;
 import com.cg.cba.service.IDriverService;
 
 import io.swagger.annotations.Api;
@@ -35,6 +37,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping(path = "api/v1/driver")
 @Api(description = "REST API of Driver Table")
+
 public class DriverController {
 	
 	
@@ -44,11 +47,31 @@ public class DriverController {
 	//Creating a Logger Object to perform Log Operations
 	private static final Logger log = LogManager.getLogger(DriverController.class);
 	
+	//Method for checking the input whether it is a valid input or not
+	public void validateInput(Driver driver) {
+		if(driver==null|| driver.getLicenseNo()==null || driver.getUsername() == null || driver.getUsername().equals("") || driver.getRating()<1){
+			throw new InvalidInputException("Driver Details Cant be null");
+		}
+		if(!Pattern.compile("[a-zA-Z0-9+_.-]+").matcher(driver.getLicenseNo()).find()){
+			throw new InvalidInputException("Enter Valid License No");
+		}
+		if(!Pattern.compile(".{6}.*").matcher(driver.getPassword()).find()) {
+			throw new InvalidInputException("Invalid Password format! Min 6 characters required");
+		}
+		if(!Pattern.compile("(0/91)?[6-9][0-9]{9}").matcher(driver.getMobileNumber()).find()) {
+			throw new InvalidInputException("Enter a valid Mobile Number");
+		}
+		if(!Pattern.compile("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-].[a-zA-Z0-9.-]+$").matcher(driver.getEmail()).find()) {
+			throw new InvalidInputException("Enter a valid Email Address");
+		}
+	}
+
 	// End-point for posting Driver Details into database
 	@PostMapping(value="insertDriver")
 	@ApiOperation(value = "Used to insertDriver and returns Driver  details")
 	public ResponseEntity<Driver> insertDriver(@RequestBody Driver driver) throws DriverAlreadyExistsException {	
 		log.info("Controller Triggered");
+		validateInput(driver);
 		Driver newDriver=iDriverService.insertDriver(driver);
 		return new ResponseEntity<Driver>(newDriver, HttpStatus.OK);
 				
@@ -59,6 +82,7 @@ public class DriverController {
 	@PutMapping(value="updateDriver")
 	public ResponseEntity<Driver> updateDriver(@RequestBody Driver driver) throws DriverNotFoundException {
 		log.info("Controller Triggered");
+		validateInput(driver);
 		Driver updateDriver=iDriverService.updateDriver(driver);
 		return new ResponseEntity<Driver>(updateDriver, HttpStatus.OK);
 	}

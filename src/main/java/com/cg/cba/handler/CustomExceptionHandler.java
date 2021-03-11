@@ -1,10 +1,17 @@
 package com.cg.cba.handler;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -19,8 +26,8 @@ import com.cg.cba.exception.CustomerAlreadyExistsException;
 import com.cg.cba.exception.CustomerNotFoundException;
 import com.cg.cba.exception.DriverAlreadyExistsException;
 import com.cg.cba.exception.DriverNotFoundException;
+import com.cg.cba.exception.InvalidInputException;
 import com.cg.cba.exception.TripAlreadyExistsException;
-import com.cg.cba.exception.ZeroDistanceException;
 @RestControllerAdvice
 public class CustomExceptionHandler {
 
@@ -41,22 +48,7 @@ public class CustomExceptionHandler {
 		log.error(exception.getLocalizedMessage());
 		return new ResponseEntity<String>(exception.getMessage(),HttpStatus.NOT_FOUND);
 	}
-	
-	
-	@ExceptionHandler(ZeroDistanceException.class)
-	public ResponseEntity<String> ZeroDistanceException(ZeroDistanceException exception)
-	{
-		log.error(exception.getLocalizedMessage());
-		return new ResponseEntity<String>(exception.getMessage(),HttpStatus.NOT_FOUND);
-	}
-	
-	@ExceptionHandler(DataIntegrityViolationException.class)
-	public ResponseEntity<String> DataIntegrityViolationException(DataIntegrityViolationException exception)
-	{
-		log.error(exception.getLocalizedMessage());
-		return new ResponseEntity<String>("Some of the Fields Cannot be Empty",HttpStatus.NOT_FOUND);
-	}
-	
+		
 	@ExceptionHandler(AdminAlreadyExsistsException.class)
 	public ResponseEntity<String> AdminAlreadyExsistsException(AdminAlreadyExsistsException exception){
 		log.error(exception.getLocalizedMessage());
@@ -110,6 +102,46 @@ public class CustomExceptionHandler {
 		log.error(exception.getLocalizedMessage());
 		return new ResponseEntity<String>(exception.getMessage(),HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<List<String>> handleConstraintViolationExceptions(ConstraintViolationException ex) {
+		String error;
+
+		Set<ConstraintViolation<?>> constraintViolations = ex.getConstraintViolations();
+		List<String> errors = new ArrayList<>(constraintViolations.size());
+
+		for (ConstraintViolation<?> constraintViolation : constraintViolations) {
+			error = constraintViolation.getMessage();
+			errors.add(error);
+		}
+		return new ResponseEntity<List<String>>(errors, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(InvalidInputException.class)
+	public ResponseEntity<String> InvalidInputException(InvalidInputException exception){
+		log.error(exception.getLocalizedMessage());
+		return new ResponseEntity<String>(exception.getMessage(),HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(org.springframework.web.method.annotation.MethodArgumentTypeMismatchException.class)
+	public ResponseEntity<String> MethodArgumentTypeMismatchException(org.springframework.web.method.annotation.MethodArgumentTypeMismatchException exception){
+		log.error(exception.getLocalizedMessage());
+		return new ResponseEntity<String>("Enter proper method parameter data type",HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	public ResponseEntity<String> HttpMessageNotReadableException(HttpMessageNotReadableException exception){
+		log.error(exception.getLocalizedMessage());
+		return new ResponseEntity<String>("Enter proper JSON format",HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(org.springframework.web.HttpRequestMethodNotSupportedException.class)
+	public ResponseEntity<String> HttpRequestMethodNotSupportedException(org.springframework.web.HttpRequestMethodNotSupportedException exception){
+		log.error(exception.getLocalizedMessage());
+		return new ResponseEntity<String>("Mapping Mismatch",HttpStatus.NOT_FOUND);
+	}
+
+	
 	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<String> Exception(Exception exception){

@@ -5,6 +5,7 @@ package com.cg.cba.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +27,7 @@ import com.cg.cba.entities.Admin;
 import com.cg.cba.entities.TripBooking;
 import com.cg.cba.exception.AdminAlreadyExsistsException;
 import com.cg.cba.exception.AdminNotFoundException;
+import com.cg.cba.exception.InvalidInputException;
 import com.cg.cba.service.AdminServiceImpl;
 
 import io.swagger.annotations.Api;
@@ -40,6 +42,7 @@ import io.swagger.annotations.ApiOperation;
 @Api(value = "Admin Controller", description = "REST API for Admin Entity")
 @RestController
 @RequestMapping(path = "/api/v1/admin")
+//@Validated
 public class AdminController {
 	
 	//Initialising the Logger
@@ -49,11 +52,30 @@ public class AdminController {
 	@Autowired
 	private AdminServiceImpl adminService;
 
+	//Method for checking the input whether it is a valid input or not
+	public void validateInput(Admin admin) {
+		if(admin == null || admin.getUsername() == null || admin.getPassword() == null || admin.getMobileNumber() == null || admin.getEmail() == null || admin.getUsername().equals("")) {
+			throw new InvalidInputException("Admin Details can't be null");
+		}
+		if(!Pattern.compile(".{6}.*").matcher(admin.getPassword()).find()) {
+			throw new InvalidInputException("Invalid Password format! Min 6 characters required");
+		}
+		if(!Pattern.compile("(0/91)?[6-9][0-9]{9}").matcher(admin.getMobileNumber()).find()) {
+			throw new InvalidInputException("Enter a valid Mobile Number");
+		}
+		if(!Pattern.compile("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-].[a-zA-Z0-9.-]+$").matcher(admin.getEmail()).find()) {
+			throw new InvalidInputException("Enter a valid Email Address");
+		}
+		
+	}
+	
+	
 	//End Point for Inserting an admin
 	@ApiOperation(value = "Insert Admin")
 	@PostMapping(path = "insertAdmin")
 	public ResponseEntity<Admin> insertAdmin(@RequestBody Admin admin) throws AdminAlreadyExsistsException{
 		log.info("Controller Triggered");
+		validateInput(admin);
 		Admin admin1 = adminService.insertAdmin(admin);
 		
 		ResponseEntity<Admin> responseEntity = new ResponseEntity<Admin>(admin1,HttpStatus.CREATED);
@@ -66,6 +88,7 @@ public class AdminController {
 	@PutMapping(path = "updateAdmin")
 	public ResponseEntity<Admin> updateAdmin(@RequestBody Admin admin) throws AdminNotFoundException{
 		log.info("Controller Triggered");
+		validateInput(admin);
 		Admin admin1 = adminService.updateAdmin(admin);
 		
 		ResponseEntity<Admin> responseEntity = new ResponseEntity<Admin>(admin1,HttpStatus.OK);

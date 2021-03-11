@@ -15,5 +15,6 @@ import com.cg.cba.exception.UserCredentialsInvalidException;
 //Service Interface for the Login Service
 public interface ILoginService {
 	
-	public String validateUser(String username, String password) throws UserCredentialsInvalidException;
+	public String signIn(String username, String password) throws UserCredentialsInvalidException;
+	public String signOut(String username, String password) throws UserCredentialsInvalidException;
 }
