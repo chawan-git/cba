@@ -41,5 +41,13 @@ public interface IDriverRepository extends JpaRepository<Driver,Integer> {
 	//This method will fetch driver mobile Number from database.
 	@Query("SELECT driver FROM Driver driver WHERE driver.mobileNumber = ?1")
 	public Driver findByMobileNumber(String mobileNumber);
+	@Query("SELECT driver FROM Driver driver")
+	public List<Driver> viewAllDrivers() throws DriverNotFoundException;
+	@Query("SELECT driver FROM Driver driver WHERE driver.status = 'Available'")
+	public List<Driver> viewAvailableDrivers() throws DriverNotFoundException;
+	@Query("SELECT driver FROM Driver driver WHERE driver.status = 'OnTrip'")
+	public List<Driver> viewOnTripDrivers() throws DriverNotFoundException;
+	@Query("SELECT driver FROM Driver driver WHERE driver.status = 'NotAvailable'")
+	public List<Driver> viewNotAvailableDrivers() throws DriverNotFoundException;
 
 }

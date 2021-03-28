@@ -39,7 +39,7 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public Admin insertAdmin(Admin admin) throws AdminAlreadyExsistsException {
 		// TODO Auto-generated method stub
-		log.info("Service Triggered");
+		log.info("Service Insert Admin Triggered");
 		
 		Optional<Admin> admin1 = adminRepository.findById(admin.getAdminId());
 		if(admin1.isPresent()) {
@@ -47,15 +47,15 @@ public class AdminServiceImpl implements IAdminService {
 			throw new AdminAlreadyExsistsException("Insert Failed! Admin with ID: "+admin.getAdminId()+" already exists!");
 		}
 		
-		Admin admin2 = adminRepository.findByEmail(admin.getEmail());
+		Admin admin2 = adminRepository.getAdminByEmail(admin.getEmail());
 		if(admin2 != null) {
 			throw new AdminAlreadyExsistsException("Insert Failed! Admin with Email "+admin.getEmail()+" already exists!");
 		}
-		admin2 = adminRepository.findByUsername(admin.getUsername());
+		admin2 = adminRepository.getAdminByUsername(admin.getUsername());
 		if(admin2 != null) {
 			throw new AdminAlreadyExsistsException("Insert Failed! Admin with Username "+admin.getUsername()+" already exists!");
 		}
-		admin2 = adminRepository.findByMobileNumber(admin.getMobileNumber());
+		admin2 = adminRepository.getAdminByMobileNumber(admin.getMobileNumber());
 		if(admin2 != null) {
 			throw new AdminAlreadyExsistsException("Insert Failed! Admin with Mobile Number "+admin.getMobileNumber()+" already exists!");
 		}
@@ -66,7 +66,7 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public Admin updateAdmin(Admin admin) throws AdminNotFoundException {
 		// TODO Auto-generated method stub
-		log.info("Service Triggered");
+		log.info("Service Update Admin Triggered");
 		Optional<Admin> admin1 = adminRepository.findById(admin.getAdminId());
 		if(!admin1.isPresent()) {
 			log.error("Update Failed! Admin with ID: "+admin.getAdminId()+" not found!");
@@ -162,4 +162,54 @@ public class AdminServiceImpl implements IAdminService {
 		return trips;
 	}
 
+	@Override
+	public List<Admin> getAllAdmins() throws AdminNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service Triggered");
+		List<Admin> admins = adminRepository.getAllAdmins();
+		if(admins.isEmpty()) {
+			log.error("No Admin Found!");
+			throw new AdminNotFoundException("No Admins Found!");
+		}
+		return admins;
+	}
+
+	@Override
+	public Admin getAdminByMobileNumber(String mobileNumber) throws AdminNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service Triggered");
+		// TODO Auto-generated method stub
+		Admin admin1 = adminRepository.getAdminByMobileNumber(mobileNumber);
+		if(admin1 == null) {
+			log.error("Admin with Mobile Number "+mobileNumber+" Not Found");
+			throw new AdminNotFoundException("Admin with Mobile Number "+mobileNumber+" Not Found!");
+		}
+		return admin1;
+	}
+
+	@Override
+	public Admin getAdminByUsername(String username) throws AdminNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service Triggered");
+		// TODO Auto-generated method stub
+		Admin admin1 = adminRepository.getAdminByUsername(username);
+		if(admin1 == null) {
+			log.error("Admin with username "+username+" Not Found");
+			throw new AdminNotFoundException("Admin with username "+username+" Not Found!");
+		}
+		return admin1;
+	}
+
+	@Override
+	public Admin getAdminByEmail(String email) throws AdminNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service Triggered");
+		// TODO Auto-generated method stub
+		Admin admin1 = adminRepository.getAdminByEmail(email);
+		if(admin1 == null) {
+			log.error("Admin with email "+email+" Not Found");
+			throw new AdminNotFoundException("Admin with email "+email+" Not Found!");
+		}
+		return admin1;
+	}
 }

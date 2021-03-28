@@ -38,9 +38,11 @@ public interface IAdminRepository extends JpaRepository<Admin, Integer>{
 	@Query("SELECT trips FROM TripBooking trips, Customer customer WHERE customer.customerId = ?1 AND ( trips.fromDateTime >= ?2 AND trips.toDateTime <= ?3 )")
 	public List<TripBooking> getAllTripsForDays(int customerId, LocalDateTime fromDateTime, LocalDateTime toDateTime);
 	@Query("SELECT admin FROM Admin admin WHERE admin.email = ?1")
-	public Admin findByEmail(String email);
+	public Admin getAdminByEmail(String email);
 	@Query("SELECT admin FROM Admin admin WHERE admin.username = ?1")
-	public Admin findByUsername(String username);
+	public Admin getAdminByUsername(String username);
 	@Query("SELECT admin FROM Admin admin WHERE admin.mobileNumber = ?1")
-	public Admin findByMobileNumber(String mobileNumber);
+	public Admin getAdminByMobileNumber(String mobileNumber);
+	@Query("SELECT admin FROM Admin admin")
+	public List<Admin> getAllAdmins();
 }

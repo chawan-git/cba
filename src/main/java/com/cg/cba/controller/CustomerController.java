@@ -71,8 +71,8 @@ public class CustomerController {
 
 	// End point to fetch customer by customerId
 	@ApiOperation(value = "Used to get customer details based on customer id")
-	@GetMapping(value = "getOneCustomer/{cid}")
-	public ResponseEntity<Customer> getCustomerByID(@PathVariable Integer cid) {
+	@GetMapping(value = "getCustomerById/{cid}")
+	public ResponseEntity<Customer> getCustomerByID(@PathVariable int cid) {
 		log.info("Controller Triggered");
 		Customer customer = customerService.viewCustomer(cid);
 		return new ResponseEntity<Customer>(customer, HttpStatus.OK);
@@ -89,29 +89,21 @@ public class CustomerController {
 	}
 
 	// End point for deleting customer
-	@ApiOperation(value = "Used to deleteCustomer/ and returns Customer details")
+	@ApiOperation(value = "Used to deleteCustomer and returns Customer details")
 	@DeleteMapping(value = "deleteCustomer/{cid}")
-	public ResponseEntity<Customer> deleteCustomerById(@PathVariable Integer cid) {
+	public ResponseEntity<Customer> deleteCustomerById(@PathVariable int cid) {
 		log.info("Controller Triggered");
 		Customer customer = customerService.deleteCustomer(cid);
-		customerService.deleteCustomer(cid);
 		return new ResponseEntity<Customer>(customer, HttpStatus.OK);
 	}
 
 	// End point for updating customer
 	@ApiOperation(value = "Used to updateCustomer and returns Customer details")
-	@PutMapping(value = "updateCustomer/{cid}")
-	public ResponseEntity<Customer> updateCustomer(@RequestBody Customer cust1, @PathVariable Integer cid) {
+	@PutMapping(value = "updateCustomer")
+	public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer) {
 		log.info("Controller Triggered");
-		validateInput(cust1);
-		Customer customer1 = customerService.viewCustomer(cid);
-		customer1.setUsername(cust1.getUsername());
-		customer1.setPassword(cust1.getPassword());
-		customer1.setEmail(cust1.getEmail());
-		customer1.setMobileNumber(cust1.getMobileNumber());
-		customer1.setAddress(cust1.getAddress());
-		customerService.updateCustomer(customer1);
-		System.out.println(cust1.getUsername());
+		validateInput(customer);
+		Customer customer1 = customerService.updateCustomer(customer);
 		return new ResponseEntity<Customer>(customer1, HttpStatus.OK);
 
 	}
@@ -127,5 +119,29 @@ public class CustomerController {
 		String username = userMap.get("username");
 		String password = userMap.get("password");
 		return customerService.validateCustomer(username, password);
+	}
+	
+	@ApiOperation(value = "Used to get customer details based on MobileNumber")
+	@GetMapping(value = "getCustomerByMobileNumber/{mobileNumber}")
+	public ResponseEntity<Customer> getCustomerByMobileNumber(@PathVariable String mobileNumber) {
+		log.info("Controller Triggered");
+		Customer customer = customerService.getCustomerByMobileNumber(mobileNumber);
+		return new ResponseEntity<Customer>(customer, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "Used to get customer details based on Username")
+	@GetMapping(value = "getCustomerByUsername/{username}")
+	public ResponseEntity<Customer> getCustomerByUsername(@PathVariable String username) {
+		log.info("Controller Triggered");
+		Customer customer = customerService.getCustomerByUsername(username);
+		return new ResponseEntity<Customer>(customer, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "Used to get customer details based on Email")
+	@GetMapping(value = "getCustomerByEmail/{email}")
+	public ResponseEntity<Customer> getCustomerByEmail(@PathVariable String email) {
+		log.info("Controller Triggered");
+		Customer customer = customerService.getCustomerByEmail(email);
+		return new ResponseEntity<Customer>(customer, HttpStatus.OK);
 	}
 }

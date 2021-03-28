@@ -40,7 +40,7 @@ public class CabController {
     
     //Method for checking the input whether it is a valid input or not
   	public void validateInput(Cab cab) {
-  		if(cab == null | cab.getCabId() == 0 || cab.getCarType() == null || cab.getCarType().equals("") || cab.getPerKmRate() == 0.0) {
+  		if(cab == null || cab.getCarType() == null || cab.getCarType().equals("") || cab.getPerKmRate() == 0.0 || cab.getPerKmRate() < 0) {
   			throw new InvalidInputException("Car details can't be null");
   		}
   		if(!Pattern.compile("[a-zA-Z]").matcher(cab.getCarType()).find()){
@@ -97,5 +97,17 @@ public class CabController {
     	log.info("Controller Triggered");
     	int count = cabService.countCabsOfType(cabType);
         return count;
+    }
+    
+    //End point for getting all the type of cabs
+    @ApiOperation(value = "Cabs of all types")
+    @GetMapping(path="viewAllCabs")
+    public ResponseEntity<List<Cab>> viewAllCabs() {
+    	log.info("Controller Triggered");
+    	List<Cab> cabs = cabService.viewAllCabs();
+        if(cabs.size() == 0) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.of(Optional.of(cabs));
     }
 }

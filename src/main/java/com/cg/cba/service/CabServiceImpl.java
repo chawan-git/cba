@@ -121,4 +121,20 @@ public class CabServiceImpl implements ICabService
 		return count;
 	}
 
+	@Override
+	/*
+	 * this method will return list of all cabs object . if no matching
+	 * cab is found, we will throw CabNotFound exception
+	 */
+	public List<Cab> viewAllCabs() throws CabNotFoundException{
+		
+		log.info("Service Triggered");
+		List<Cab> cabs = cabRepository.viewAllCabs();
+		if(cabs.isEmpty()) {
+			log.error("Could not view! Cab types not found!");
+			throw new CabNotFoundException("Cab Not Found!");
+		}
+		return cabs;
+	}
+
 }

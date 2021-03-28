@@ -13,6 +13,7 @@ import com.cg.cba.entities.Customer;
 import com.cg.cba.entities.Driver;
 import com.cg.cba.entities.TripBooking;
 import java.util.Optional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.cg.cba.exception.CabNotFoundException;
@@ -131,7 +132,7 @@ public class TripBookingServiceImpl implements ITripBookingService {
 		tripBooking2.setToLocation(tripBooking.getToLocation());
 		tripBooking2.setFromDateTime(tripBooking.getFromDateTime());
 		tripBooking2.setToDateTime(tripBooking.getToDateTime());
-		tripBooking2.setStatus(tripBooking.isStatus());
+		tripBooking2.setStatus(tripBooking.getStatus());
 		tripBooking2.setDistanceInKm(tripBooking.getDistanceInKm());
 		tripBooking2.setBill(tripBooking.getBill());
 		
@@ -173,7 +174,7 @@ public class TripBookingServiceImpl implements ITripBookingService {
 		tripBooking2.setToLocation(tripBooking.getToLocation());
 		tripBooking2.setFromDateTime(tripBooking.getFromDateTime());
 		tripBooking2.setToDateTime(tripBooking.getToDateTime());
-		tripBooking2.setStatus(tripBooking.isStatus());
+		tripBooking2.setStatus(tripBooking.getStatus());
 		tripBooking2.setDistanceInKm(tripBooking.getDistanceInKm());
 		tripBooking2.setBill(tripBooking.getBill());
 		
@@ -324,6 +325,202 @@ public class TripBookingServiceImpl implements ITripBookingService {
 			throw new DriverNotFoundException("driver with given details does not exist");
 		}
 				
+	}
+
+	@Override
+	public List<TripBooking> viewAllTrips()
+			throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service triggered");
+		
+		List<TripBooking> trips = tripBookingRepository.viewAllTrips();
+		if(trips.isEmpty()) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Trip Booking Not Found!");
+		}
+		return trips;
+	}
+
+	@Override
+	public List<TripBooking> viewTripsByCustomerMobileNumber(String mobileNumber)
+			throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service triggered");
+		
+		List<TripBooking> trips = tripBookingRepository.viewTripsByCustomerMobileNumber(mobileNumber);
+		if(trips.isEmpty()) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Trip Booking Not Found!");
+		}
+		return trips;
+	}
+
+	@Override
+	public List<TripBooking> viewTripsByDriverMobileNumber(String mobileNumber)
+			throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service triggered");
+		
+		List<TripBooking> trips = tripBookingRepository.viewTripsByDriverMobileNumber(mobileNumber);
+		if(trips.isEmpty()) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Trip Booking Not Found!");
+		}
+		return trips;
+	}
+
+	@Override
+	public List<TripBooking> viewTripsByCarType(String carType)
+			throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service triggered");
+		
+		List<TripBooking> trips = tripBookingRepository.viewTripsBycarType(carType);
+		if(trips.isEmpty()) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Trip Booking Not Found!");
+		}
+		return trips;
+	}
+
+	@Override
+	public List<TripBooking> viewAllTripsOnDays(LocalDateTime fromDateTime, LocalDateTime toDateTime)
+			throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service triggered");
+		
+		List<TripBooking> trips = tripBookingRepository.viewAllTripsOnDays(fromDateTime, toDateTime);
+		if(trips.isEmpty()) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Trip Booking Not Found!");
+		}
+		return trips;
+	}
+
+	@Override
+	public List<TripBooking> viewTripsOnDaysByDriverId(LocalDateTime fromDateTime, LocalDateTime toDateTime,
+			int driverId) throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service triggered");
+		
+		List<TripBooking> trips = tripBookingRepository.viewTripsOnDaysByDriverId(fromDateTime, toDateTime, driverId);
+		if(trips.isEmpty()) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Trip Booking Not Found!");
+		}
+		return trips;
+	}
+
+	@Override
+	public List<TripBooking> viewTripsRequested()
+			throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service triggered");
+		
+		List<TripBooking> trips = tripBookingRepository.viewTripsRequested();
+		if(trips.isEmpty()) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Trip Booking Not Found!");
+		}
+		return trips;
+	}
+
+	@Override
+	public List<TripBooking> viewTripsOnDaysByCarType(LocalDateTime fromDateTime, LocalDateTime toDateTime,
+			String carType) throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service triggered");
+		
+		List<TripBooking> trips = tripBookingRepository.viewTripsOnDaysBycarType(fromDateTime, toDateTime, carType);
+		if(trips.isEmpty()) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Trip Booking Not Found!");
+		}
+		return trips;
+	}
+
+	@Override
+	public List<TripBooking> viewTripsDriverAssigned()
+			throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service triggered");
+		
+		List<TripBooking> trips = tripBookingRepository.viewTripsDriverAssigned();
+		if(trips.isEmpty()) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Trip Booking Not Found!");
+		}
+		return trips;
+	}
+
+	@Override
+	public List<TripBooking> viewTripsTripStarted()
+			throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service triggered");
+		
+		List<TripBooking> trips = tripBookingRepository.viewTripsTripStarted();
+		if(trips.isEmpty()) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Trip Booking Not Found!");
+		}
+		return trips;
+	}
+
+	@Override
+	public List<TripBooking> viewTripsTripEnded()
+			throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service triggered");
+		
+		List<TripBooking> trips = tripBookingRepository.viewTripsTripEnded();
+		if(trips.isEmpty()) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Trip Booking Not Found!");
+		}
+		return trips;
+	}
+
+	@Override
+	public List<TripBooking> viewTripsTripPaid()
+			throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service triggered");
+		
+		List<TripBooking> trips = tripBookingRepository.viewTripsTripPaid();
+		if(trips.isEmpty()) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Trip Booking Not Found!");
+		}
+		return trips;
+	}
+
+	@Override
+	public Double getTotalRevenueByDriverId(int driverId)
+			throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service triggered");
+		
+		double revenue = tripBookingRepository.getTotalRevenueByDriverId(driverId);
+		if(revenue<=0) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Trip Booking Not Found!");
+		}
+		return revenue;
+	}
+
+	@Override
+	public Double getRevenueOnDaysByDriverId(int driverId, LocalDateTime fromDateTime, LocalDateTime toDateTime)
+			throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service triggered");
+		
+		double revenue = tripBookingRepository.getRevenueOnDaysByDriverId(driverId,fromDateTime,toDateTime);
+		if(revenue<=0) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Trip Booking Not Found!");
+		}
+		return revenue;
 	}
 	
 }

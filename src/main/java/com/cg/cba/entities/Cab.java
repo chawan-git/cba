@@ -43,12 +43,12 @@ public class Cab {
 	
 	@ApiModelProperty(required = true, example = "SUV")
 	//The Column annotation is used to specify the mapped column for a persistent property or field
-	@Column
+	@Column(nullable = false, unique = true)
 	@Pattern(regexp = "[a-zA-Z0-9]", message ="Invalid CarType")
 	String carType;
 	@ApiModelProperty(required = true, example = "11.0")
 	@NotNull
-	@Column
+	@Column(nullable = false)
 	@Pattern(regexp ="^(\\d+(\\.\\d{0,2})?|\\.?\\d{1,2})$", message = "not a valid entry")
 	float perKmRate;
 	

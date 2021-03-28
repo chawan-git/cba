@@ -36,4 +36,12 @@ public interface IAdminService {
 	public List<TripBooking> getTripsDatewise() throws TripBookingNotFoundException; 
 	//Method declaration for Insert Get All Trips for a particular customer Id, in a particular time frame Service
 	public List<TripBooking> getAllTripsForDays(int customerId, LocalDateTime fromDate, LocalDateTime toDate) throws TripBookingNotFoundException;
+	
+	public List<Admin> getAllAdmins() throws AdminNotFoundException;
+	
+	public Admin getAdminByMobileNumber(String mobileNumber) throws AdminNotFoundException;
+	
+	public Admin getAdminByUsername(String username) throws AdminNotFoundException;
+	
+	public Admin getAdminByEmail(String email) throws AdminNotFoundException;
 }

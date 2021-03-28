@@ -82,8 +82,9 @@ public class CustomerServiceImpl implements ICustomerService {
 			log.error("Delete Failed! Customer with ID: " + customerId + " not found!");
 			throw new CustomerNotFoundException("Delete Failed! Customer with ID: " + customerId + " not found!");
 		}
-		customerRepository.delete(customer1.get());
-		return customer1.get();
+		Customer customer2 = customer1.get();
+		customerRepository.delete(customer2);
+		return customer2;
 	}
 
 	// viewCustomers method list out all customers.
@@ -129,6 +130,42 @@ public class CustomerServiceImpl implements ICustomerService {
 		}
 		log.error("No Customers Found!");
 		throw new CustomerNotFoundException("Invalid Credentials!");
+	}
+
+	@Override
+	public Customer getCustomerByMobileNumber(String mobileNumber) throws CustomerNotFoundException {
+		// TODO Auto-generated method stub		log.info("Service Triggered");
+		Customer customer = customerRepository.findByMobileNumber(mobileNumber);
+		if (customer.equals(null)) {
+			 log.error("No Customer Found!");
+			throw new CustomerNotFoundException("Customer Not Found!");
+		}
+		
+		return customer;
+	}
+
+	@Override
+	public Customer getCustomerByUsername(String username) throws CustomerNotFoundException {
+		// TODO Auto-generated method stub
+		Customer customer = customerRepository.findByUsername(username);
+		if (customer.equals(null)) {
+			 log.error("No Customer Found!");
+			throw new CustomerNotFoundException("Customer Not Found!");
+		}
+		
+		return customer;
+	}
+
+	@Override
+	public Customer getCustomerByEmail(String email) throws CustomerNotFoundException {
+		// TODO Auto-generated method stub
+		Customer customer = customerRepository.findByEmail(email);
+		if (customer.equals(null)) {
+			 log.error("No Customer Found!");
+			throw new CustomerNotFoundException("Customer Not Found!");
+		}
+		
+		return customer;
 	}
 
 }

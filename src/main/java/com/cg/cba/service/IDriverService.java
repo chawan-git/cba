@@ -32,5 +32,17 @@ public interface IDriverService {
 	
 	public List<Driver> viewBestDrivers() throws DriverNotFoundException, CabNotFoundException;
 
-
+	public List<Driver> viewAllDrivers() throws DriverNotFoundException, CabNotFoundException;
+	
+	public List<Driver> viewAvailableDrivers() throws DriverNotFoundException,CabNotFoundException;
+	
+	public List<Driver> viewOnTripDrivers() throws DriverNotFoundException,CabNotFoundException;
+	
+	public List<Driver> viewNotAvailableDrivers() throws DriverNotFoundException,CabNotFoundException;
+	
+	public Driver viewDriverByMobileNumber(String mobileNumber) throws DriverNotFoundException,CabNotFoundException;
+	
+	public Driver viewDriverByUsername(String username) throws DriverNotFoundException,CabNotFoundException;
+	
+	public Driver viewDriverByEmail(String email) throws DriverNotFoundException,CabNotFoundException;
 }

@@ -183,7 +183,6 @@ public class DriverServiceImpl implements IDriverService {
 			throw new DriverNotFoundException("Driver Not Found!");
 		}
 		Driver driver2 = driver1.get();
-		driverRepository.viewBestDrivers();
 		return driver2;
 	}
 
@@ -215,5 +214,89 @@ public class DriverServiceImpl implements IDriverService {
 			throw new CabNotFoundException("Cab details not correct");
 		}	
 						
+	}
+
+	@Override
+	public List<Driver> viewAllDrivers() throws DriverNotFoundException, CabNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service Triggered");
+		List<Driver> drivers = driverRepository.viewAllDrivers();
+		if (drivers.isEmpty()) {
+			log.error("Viewing Failed! Driver not found!");
+			throw new DriverNotFoundException("Driver Not Found!");
+		}
+		return drivers;
+	}
+
+	@Override
+	public List<Driver> viewAvailableDrivers() throws DriverNotFoundException, CabNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service Triggered");
+		List<Driver> drivers = driverRepository.viewAvailableDrivers();
+		if (drivers.isEmpty()) {
+			log.error("Viewing Failed! Driver not found!");
+			throw new DriverNotFoundException("Driver Not Found!");
+		}
+		return drivers;
+	}
+
+	@Override
+	public List<Driver> viewOnTripDrivers() throws DriverNotFoundException, CabNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service Triggered");
+		List<Driver> drivers = driverRepository.viewOnTripDrivers();
+		if (drivers.isEmpty()) {
+			log.error("Viewing Failed! Driver not found!");
+			throw new DriverNotFoundException("Driver Not Found!");
+		}
+		return drivers;
+	}
+
+	@Override
+	public List<Driver> viewNotAvailableDrivers() throws DriverNotFoundException, CabNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service Triggered");
+		List<Driver> drivers = driverRepository.viewNotAvailableDrivers();
+		if (drivers.isEmpty()) {
+			log.error("Viewing Failed! Driver not found!");
+			throw new DriverNotFoundException("Driver Not Found!");
+		}
+		return drivers;
+	}
+
+	@Override
+	public Driver viewDriverByMobileNumber(String mobileNumber) throws DriverNotFoundException, CabNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service Triggered");
+		Driver driver1 = driverRepository.findByMobileNumber(mobileNumber);
+		if (driver1.equals(null)) {
+			log.error("Viewing Failed! Driver with mobileNumber: " + mobileNumber + " not found!");
+			throw new DriverNotFoundException("Driver Not Found!");
+		}
+		return driver1;
+	}
+
+	@Override
+	public Driver viewDriverByUsername(String username) throws DriverNotFoundException, CabNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service Triggered");
+		Driver driver1 = driverRepository.findByUsername(username);
+		if (driver1.equals(null)) {
+			log.error("Viewing Failed! Driver with username: " + username + " not found!");
+			throw new DriverNotFoundException("Driver Not Found!");
+		}
+		return driver1;
+	}
+
+	@Override
+	public Driver viewDriverByEmail(String email) throws DriverNotFoundException, CabNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service Triggered");
+		Driver driver1 = driverRepository.findByEmail(email);
+		if (driver1.equals(null)) {
+			log.error("Viewing Failed! Driver with email: " + email + " not found!");
+			throw new DriverNotFoundException("Driver Not Found!");
+		}
+		return driver1;
 	}
 }

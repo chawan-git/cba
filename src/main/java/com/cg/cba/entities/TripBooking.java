@@ -84,7 +84,7 @@ public class TripBooking {
 	@Column
 	@ApiModelProperty(notes = "status of the Trip", example = "true", required = true)
 	@Pattern(regexp="[a-z]", message= "valid status")
-	private boolean status;
+	private String status;
 	
 	@Column
 	@ApiModelProperty(notes = "Distance of Trip", example = "12.5", required = true)

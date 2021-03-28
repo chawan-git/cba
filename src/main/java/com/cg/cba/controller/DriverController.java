@@ -73,7 +73,7 @@ public class DriverController {
 		log.info("Controller Triggered");
 		validateInput(driver);
 		Driver newDriver=iDriverService.insertDriver(driver);
-		return new ResponseEntity<Driver>(newDriver, HttpStatus.OK);
+		return new ResponseEntity<Driver>(newDriver, HttpStatus.CREATED);
 				
 	}
 	
@@ -90,10 +90,10 @@ public class DriverController {
 	// End-point for deleting Driver Details into database
 	@ApiOperation(value = "Used to deleteDriver and returns Driver Details")
 	@DeleteMapping("deleteDriver/{driverId}")
-	public ResponseEntity<HttpStatus> deleteDriver(@PathVariable Integer driverId) throws CabNotFoundException, DriverNotFoundException {
+	public ResponseEntity<Driver> deleteDriver(@PathVariable Integer driverId) throws CabNotFoundException, DriverNotFoundException {
 			log.info("Controller Triggered");
-			this.iDriverService.deleteDriver((driverId));
-			return new ResponseEntity<>(HttpStatus.OK);
+			Driver driver1 = iDriverService.deleteDriver((driverId));
+			return new ResponseEntity<Driver>(driver1, HttpStatus.OK);
 		
 	}
 
@@ -116,5 +116,68 @@ public class DriverController {
 		List<Driver> drivers=iDriverService.viewBestDrivers();
 		return new ResponseEntity<List<Driver>>(drivers,HttpStatus.OK);
 	}
-
+	
+	@ApiOperation(value = "Used to view All the Drivers")
+	@GetMapping("viewAllDrivers")
+	public ResponseEntity<List<Driver>> viewAllDrivers() throws DriverNotFoundException{
+		log.info("Controller Triggered");
+		List<Driver> findDriver= iDriverService.viewAllDrivers();
+		return new ResponseEntity<List<Driver>>(findDriver,HttpStatus.OK);
+		
+	}
+	
+	@ApiOperation(value = "Used to view All the Available Drivers")
+	@GetMapping("viewAvailableDrivers")
+	public ResponseEntity<List<Driver>> viewAvailableDrivers() throws DriverNotFoundException{
+		log.info("Controller Triggered");
+		List<Driver> findDriver= iDriverService.viewAvailableDrivers();
+		return new ResponseEntity<List<Driver>>(findDriver,HttpStatus.OK);
+		
+	}
+	
+	@ApiOperation(value = "Used to view All the On Trip Drivers")
+	@GetMapping("viewOnTripDrivers")
+	public ResponseEntity<List<Driver>> viewOnTripDrivers() throws DriverNotFoundException{
+		log.info("Controller Triggered");
+		List<Driver> findDriver= iDriverService.viewOnTripDrivers();
+		return new ResponseEntity<List<Driver>>(findDriver,HttpStatus.OK);
+		
+	}
+	
+	@ApiOperation(value = "Used to view All the Not Available Drivers")
+	@GetMapping("viewNotAvailableDrivers")
+	public ResponseEntity<List<Driver>> viewNotAvailableDrivers() throws DriverNotFoundException{
+		log.info("Controller Triggered");
+		List<Driver> findDriver= iDriverService.viewNotAvailableDrivers();
+		return new ResponseEntity<List<Driver>>(findDriver,HttpStatus.OK);
+		
+	}
+	
+	@ApiOperation(value = "Used to viewDriver by Mobile Number")
+	@GetMapping("viewDriverByMobileNumber/{mobileNumber}")
+	public ResponseEntity<Driver> viewDriverByMobileNumber(@PathVariable String mobileNumber) throws DriverNotFoundException{
+		log.info("Controller Triggered");
+		Driver driver= iDriverService.viewDriverByMobileNumber(mobileNumber);
+		return new ResponseEntity<Driver>(driver,HttpStatus.OK);
+		
+	}
+	
+	@ApiOperation(value = "Used to viewDriver by Username")
+	@GetMapping("viewDriverByUsername/{username}")
+	public ResponseEntity<Driver> viewDriverByUsername(@PathVariable String username) throws DriverNotFoundException{
+		log.info("Controller Triggered");
+		Driver driver= iDriverService.viewDriverByUsername(username);
+		return new ResponseEntity<Driver>(driver,HttpStatus.OK);
+		
+	}
+	
+	@ApiOperation(value = "Used to viewDriver by Email")
+	@GetMapping("viewDriverByEmail/{email}")
+	public ResponseEntity<Driver> viewDriverByEmail(@PathVariable String email) throws DriverNotFoundException{
+		log.info("Controller Triggered");
+		Driver driver= iDriverService.viewDriverByEmail(email);
+		return new ResponseEntity<Driver>(driver,HttpStatus.OK);
+		
+	}
+	
 }

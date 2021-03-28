@@ -16,4 +16,8 @@ public interface ICustomerService {
 	public List<Customer> viewCustomers() throws CustomerNotFoundException;
 	public Customer viewCustomer(int customerId) throws CustomerNotFoundException;
 	public Customer validateCustomer(String username, String password) throws CustomerNotFoundException;
+	public Customer getCustomerByMobileNumber(String mobileNumber) throws CustomerNotFoundException;
+	public Customer getCustomerByUsername(String username) throws CustomerNotFoundException;
+	public Customer getCustomerByEmail(String email) throws CustomerNotFoundException;
+	
 }

@@ -40,7 +40,7 @@ public abstract class AbstractUser {
 	@NotNull(message = "mobile number can not be null")
 	@Pattern(regexp = "(0/91)?[7-9][0-9]{9}", message = "Invalid mobile number")
 	@ApiModelProperty(notes = "mobile number should be valid", example = "97658545256", required = true)
-	@Column
+	@Column(unique = true, nullable = false)
 	private String mobileNumber;
 	
 	@NotNull(message = "email can not be null")

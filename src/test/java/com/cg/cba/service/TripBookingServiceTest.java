@@ -85,7 +85,7 @@ public class TripBookingServiceTest {
 		tripBooking.setFromDateTime(LocalDateTime.of(LocalDate.of(2021, 03, 9), LocalTime.of(07, 00, 00)));
 		tripBooking.setToDateTime(LocalDateTime.of(LocalDate.of(2021, 03, 9), LocalTime.of(21, 0, 0)));
 		tripBooking.setBill(100.00f);
-		tripBooking.setStatus(true);
+		tripBooking.setStatus("Status");
 		tripBooking.setDistanceInKm(100.00f);
 	}
 

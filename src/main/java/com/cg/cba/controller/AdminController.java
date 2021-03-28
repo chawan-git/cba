@@ -42,7 +42,6 @@ import io.swagger.annotations.ApiOperation;
 @Api(value = "Admin Controller", description = "REST API for Admin Entity")
 @RestController
 @RequestMapping(path = "/api/v1/admin")
-//@Validated
 public class AdminController {
 	
 	//Initialising the Logger
@@ -66,7 +65,6 @@ public class AdminController {
 		if(!Pattern.compile("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-].[a-zA-Z0-9.-]+$").matcher(admin.getEmail()).find()) {
 			throw new InvalidInputException("Enter a valid Email Address");
 		}
-		
 	}
 	
 	
@@ -151,6 +149,47 @@ public class AdminController {
 		log.info("Controller Triggered");
 		List<TripBooking> trips = adminService.getAllTripsForDays(customerId,fromDateTime,toDateTime);
 		ResponseEntity<List<TripBooking>> responseEntity = new ResponseEntity<List<TripBooking>>(trips,HttpStatus.OK);
+		return responseEntity;
+	}
+	
+	
+	//End Point for Getting All Admins
+	@ApiOperation(value = "Get All Admins")
+	@GetMapping(path = "getAllAdmins")
+	public ResponseEntity<List<Admin>> getAllAdmins(){
+		log.info("Controller Triggered");
+		List<Admin> admins = adminService.getAllAdmins();
+		ResponseEntity<List<Admin>> responseEntity = new ResponseEntity<List<Admin>>(admins,HttpStatus.OK);
+		return responseEntity;
+	}
+	
+	//End Point for Getting admin based on mobileNumber
+	@ApiOperation(value = "Get Admin based on mobileNumber")
+	@GetMapping(path = "getAdminByMobileNumber/{mobileNumber}")
+	public ResponseEntity<Admin> getAdminByMobileNumber(@PathVariable String mobileNumber){
+		log.info("Controller Triggered");
+		Admin admin = adminService.getAdminByMobileNumber(mobileNumber);
+		ResponseEntity<Admin> responseEntity = new ResponseEntity<Admin>(admin,HttpStatus.OK);
+		return responseEntity;
+	}
+	
+	//End Point for Getting admin based on username
+	@ApiOperation(value = "Get Admin based on username")
+	@GetMapping(path = "getAdminByUsername/{username}")
+	public ResponseEntity<Admin> getAdminByUsername(@PathVariable String username){
+		log.info("Controller Triggered");
+		Admin admin = adminService.getAdminByUsername(username);
+		ResponseEntity<Admin> responseEntity = new ResponseEntity<Admin>(admin,HttpStatus.OK);
+		return responseEntity;
+	}
+	
+	//End Point for Getting admin based on email
+	@ApiOperation(value = "Get Admin based on email")
+	@GetMapping(path = "getAdminByEmail/{email}")
+	public ResponseEntity<Admin> getAdminByEmail(@PathVariable String email){
+		log.info("Controller Triggered");
+		Admin admin = adminService.getAdminByEmail(email);
+		ResponseEntity<Admin> responseEntity = new ResponseEntity<Admin>(admin,HttpStatus.OK);
 		return responseEntity;
 	}
 }
