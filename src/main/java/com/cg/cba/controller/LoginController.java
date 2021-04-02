@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ import io.swagger.annotations.ApiOperation;
 
 //Login Controller
 @RestController  
+@CrossOrigin(origins = {"http://localhost:3000","https://cab-test.rao.life","https://cab.rao.life"})
 @RequestMapping(value = "/api/v1/login")
 @Api(value = "Login Controller", description = "REST API for Login Service")
 public class LoginController {

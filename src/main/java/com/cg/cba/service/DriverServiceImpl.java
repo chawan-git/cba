@@ -125,7 +125,7 @@ public class DriverServiceImpl implements IDriverService {
 		driver2.setPassword(driver.getPassword());
 		driver2.setRating(driver.getRating());
 		driver2.setUsername(driver.getUsername());
-
+		driver2.setStatus(driver.getStatus());
 		driverRepository.save(driver2);
 		return driver2;
 	}

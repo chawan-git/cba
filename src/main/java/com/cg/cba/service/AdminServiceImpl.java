@@ -212,4 +212,17 @@ public class AdminServiceImpl implements IAdminService {
 		}
 		return admin1;
 	}
+
+	@Override
+	public Admin getAdminById(int adminId) throws AdminNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service Triggered");
+		Optional<Admin> admin1 = adminRepository.findById(adminId);
+		if(!admin1.isPresent()) {
+			log.error(" Admin with ID: "+adminId+" not found!");
+			throw new AdminNotFoundException("Delete Failed! Admin with ID: "+adminId+" not found!");
+		}
+		
+		return admin1.get();
+	}
 }

@@ -38,3 +38,4 @@ out/
 
 ### Confidential ###
 /src/main/resources/application.properties
+keystore.p12

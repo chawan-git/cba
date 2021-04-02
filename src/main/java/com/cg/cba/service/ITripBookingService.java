@@ -4,6 +4,7 @@
 package com.cg.cba.service;
 
 import com.cg.cba.entities.TripBooking;
+import com.cg.cba.exception.CabNotFoundException;
 import com.cg.cba.exception.CustomerNotFoundException;
 import com.cg.cba.exception.DriverNotFoundException;
 import com.cg.cba.exception.TripAlreadyExistsException;
@@ -39,4 +40,6 @@ public interface ITripBookingService {
 	public List<TripBooking> viewTripsTripPaid() throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException;
 	public Double getTotalRevenueByDriverId(int driverId) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException;
 	public Double getRevenueOnDaysByDriverId(int driverId, LocalDateTime fromDateTime, LocalDateTime toDateTime) throws TripBookingNotFoundException,CustomerNotFoundException, DriverNotFoundException;
+
+	public TripBooking viewTripById(int tripBookingId) throws TripBookingNotFoundException,CustomerNotFoundException, CabNotFoundException; 
 }

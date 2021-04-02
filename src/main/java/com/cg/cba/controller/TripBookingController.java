@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:3000","https://cab-test.rao.life","https://cab.rao.life"})
 @RequestMapping(value = "api/v1/tripBooking")
 @Api(description = "REST API of TripBooking Table")
 public class TripBookingController {
@@ -248,5 +250,16 @@ public class TripBookingController {
 		Double revenue = tripBookingService.getRevenueOnDaysByDriverId(driverId,fromDateTime,toDateTime);
 		return new ResponseEntity<Double>(revenue, HttpStatus.OK);
 	}
+	
+	@ApiOperation(value = "Used to View TripBooking By Id")
+	@GetMapping(value = "getTripById/{tripBookingId}")
+	public ResponseEntity<TripBooking> getTripById(@PathVariable int tripBookingId) throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
+		
+		log.info("Controller Triggered");
+
+		TripBooking trip = tripBookingService.viewTripById(tripBookingId);
+		return new ResponseEntity<TripBooking>(trip, HttpStatus.OK);
+	}
+	
 	
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +42,7 @@ import io.swagger.annotations.ApiOperation;
 //Controller EndPoint for Admin
 @Api(value = "Admin Controller", description = "REST API for Admin Entity")
 @RestController
+@CrossOrigin(origins = {"http://localhost:3000","https://cab-test.rao.life","https://cab.rao.life"})
 @RequestMapping(path = "/api/v1/admin")
 public class AdminController {
 	
@@ -189,6 +191,16 @@ public class AdminController {
 	public ResponseEntity<Admin> getAdminByEmail(@PathVariable String email){
 		log.info("Controller Triggered");
 		Admin admin = adminService.getAdminByEmail(email);
+		ResponseEntity<Admin> responseEntity = new ResponseEntity<Admin>(admin,HttpStatus.OK);
+		return responseEntity;
+	}
+	
+	//End Point for Getting admin based on email
+	@ApiOperation(value = "Get Admin based on id")
+	@GetMapping(path = "getAdminById/{adminId}")
+	public ResponseEntity<Admin> getAdminById(@PathVariable int adminId){
+		log.info("Controller Triggered");
+		Admin admin = adminService.getAdminById(adminId);
 		ResponseEntity<Admin> responseEntity = new ResponseEntity<Admin>(admin,HttpStatus.OK);
 		return responseEntity;
 	}

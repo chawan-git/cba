@@ -137,4 +137,18 @@ public class CabServiceImpl implements ICabService
 		return cabs;
 	}
 
+	@Override
+	public Cab getCabById(int cabId) throws CabNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service Triggered");
+		Optional<Cab> cab1 = cabRepository.findById(cabId);
+		if(!cab1.isPresent()) {
+			log.error("Could not find cab! Cab with Id "+cabId+" not found!");
+			throw new CabNotFoundException("Cab with ID "+cabId+" not found!");
+		}
+		
+
+		return cab1.get();
+	}
+
 }

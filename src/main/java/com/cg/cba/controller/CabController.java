@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
  * controller consists of @Controller and @ResponseBody annotation
  */
 @Api(value = "Cab Controller", description = "REST API for Cab Entity")
+@CrossOrigin(origins = {"http://localhost:3000","https://cab-test.rao.life","https://cab.rao.life"})
 @RestController
 public class CabController {
 	//Initialising the Logger
@@ -109,5 +110,15 @@ public class CabController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.of(Optional.of(cabs));
+    }
+    
+    //End point for getting all the type of cabs
+    @ApiOperation(value = "Get Cab By Id")
+    @GetMapping(path="getCabById/{cabId}")
+    public ResponseEntity<Cab> getCabById(@PathVariable int cabId) {
+    	log.info("Controller Triggered");
+    	Cab cab = cabService.getCabById(cabId);
+        ResponseEntity<Cab> responseEntity = new ResponseEntity<Cab>(cab,HttpStatus.OK);
+        return responseEntity;
     }
 }

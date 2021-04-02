@@ -18,4 +18,5 @@ public interface ICabService
 	public int countCabsOfType(String carType) throws CabNotFoundException;
 	
 	public List<Cab> viewAllCabs() throws CabNotFoundException;
+	public Cab getCabById(int cabId) throws CabNotFoundException; 
 }

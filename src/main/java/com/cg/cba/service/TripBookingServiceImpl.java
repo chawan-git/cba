@@ -522,5 +522,19 @@ public class TripBookingServiceImpl implements ITripBookingService {
 		}
 		return revenue;
 	}
+
+	@Override
+	public TripBooking viewTripById(int tripBookingId)
+			throws TripBookingNotFoundException, CustomerNotFoundException, CabNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service triggered");
+		Optional<TripBooking> trip = tripBookingRepository.findById(tripBookingId);
+		if(!trip.isPresent()) {
+			log.error("TripBookingNotFoundException");
+			throw new TripBookingNotFoundException("Trip with ID "+tripBookingId+" not found.");
+		}
+		return trip.get();
+		
+	}
 	
 }

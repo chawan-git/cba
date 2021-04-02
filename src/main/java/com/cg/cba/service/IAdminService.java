@@ -44,4 +44,7 @@ public interface IAdminService {
 	public Admin getAdminByUsername(String username) throws AdminNotFoundException;
 	
 	public Admin getAdminByEmail(String email) throws AdminNotFoundException;
+	
+	public Admin getAdminById(int adminId) throws AdminNotFoundException;
+	
 }
