@@ -50,7 +50,7 @@ public class TripBooking {
 	private int tripBookingId;
 	
 	//implementing Has a relationship of Customer Class and implementing one to one relationship
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = Customer.class)
+	@OneToOne(fetch = FetchType.EAGER)
 	@ApiModelProperty(notes = "All Driver detalis",  required = true)
 	private Customer customer;
 	

@@ -136,7 +136,7 @@ public class CustomerServiceImpl implements ICustomerService {
 	public Customer getCustomerByMobileNumber(String mobileNumber) throws CustomerNotFoundException {
 		// TODO Auto-generated method stub		log.info("Service Triggered");
 		Customer customer = customerRepository.findByMobileNumber(mobileNumber);
-		if (customer.equals(null)) {
+		if (customer == null) {
 			 log.error("No Customer Found!");
 			throw new CustomerNotFoundException("Customer Not Found!");
 		}
@@ -148,7 +148,7 @@ public class CustomerServiceImpl implements ICustomerService {
 	public Customer getCustomerByUsername(String username) throws CustomerNotFoundException {
 		// TODO Auto-generated method stub
 		Customer customer = customerRepository.findByUsername(username);
-		if (customer.equals(null)) {
+		if (customer == null) {
 			 log.error("No Customer Found!");
 			throw new CustomerNotFoundException("Customer Not Found!");
 		}
@@ -160,7 +160,7 @@ public class CustomerServiceImpl implements ICustomerService {
 	public Customer getCustomerByEmail(String email) throws CustomerNotFoundException {
 		// TODO Auto-generated method stub
 		Customer customer = customerRepository.findByEmail(email);
-		if (customer.equals(null)) {
+		if (customer == null) {
 			 log.error("No Customer Found!");
 			throw new CustomerNotFoundException("Customer Not Found!");
 		}

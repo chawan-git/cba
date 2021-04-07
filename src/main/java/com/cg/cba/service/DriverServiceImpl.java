@@ -269,7 +269,7 @@ public class DriverServiceImpl implements IDriverService {
 		// TODO Auto-generated method stub
 		log.info("Service Triggered");
 		Driver driver1 = driverRepository.findByMobileNumber(mobileNumber);
-		if (driver1.equals(null)) {
+		if (driver1 == null) {
 			log.error("Viewing Failed! Driver with mobileNumber: " + mobileNumber + " not found!");
 			throw new DriverNotFoundException("Driver Not Found!");
 		}
@@ -281,7 +281,7 @@ public class DriverServiceImpl implements IDriverService {
 		// TODO Auto-generated method stub
 		log.info("Service Triggered");
 		Driver driver1 = driverRepository.findByUsername(username);
-		if (driver1.equals(null)) {
+		if (driver1 == null) {
 			log.error("Viewing Failed! Driver with username: " + username + " not found!");
 			throw new DriverNotFoundException("Driver Not Found!");
 		}
@@ -293,7 +293,7 @@ public class DriverServiceImpl implements IDriverService {
 		// TODO Auto-generated method stub
 		log.info("Service Triggered");
 		Driver driver1 = driverRepository.findByEmail(email);
-		if (driver1.equals(null)) {
+		if (driver1 == null) {
 			log.error("Viewing Failed! Driver with email: " + email + " not found!");
 			throw new DriverNotFoundException("Driver Not Found!");
 		}

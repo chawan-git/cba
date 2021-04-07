@@ -84,12 +84,12 @@ public class TripBookingController {
 	//controller to request deleteTripBooking method in service layer
 	@ApiOperation(value = "Used to Delete Trip Booking details and returns the Trip Booking details")
 	@DeleteMapping(value = "deleteTripBooking/{tripBookingId}")
-	public ResponseEntity<String> deleteTripBooking(@PathVariable int tripBookingId) throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
+	public ResponseEntity<TripBooking> deleteTripBooking(@PathVariable int tripBookingId) throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
 		
 		log.info("deleteTripBooking request is placed from controller");
 		
-		tripBookingService.deleteTripBooking(tripBookingId);
-		return new ResponseEntity<String>("Trip Booking With ID "+tripBookingId+" Deleted Successfully", HttpStatus.OK);
+		TripBooking tripBooking1 = tripBookingService.deleteTripBooking(tripBookingId);
+		return new ResponseEntity<TripBooking>(tripBooking1, HttpStatus.OK);
 	}
 
 	//controller to request viewAllTripsCustomer method in service layer
