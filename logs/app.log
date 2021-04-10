@@ -1283,3 +1283,112 @@
 [INFO ] 2021-04-10 09:36:14.618 INFO :com.cg.cba.service.TripBookingServiceImpl[updateTripBooking1] updateTripBooking service got excuted at Line 156 
 [INFO ] 2021-04-10 09:36:18.143 INFO :com.cg.cba.controller.TripBookingController[updateTripBooking] updateTripBooking request is placed from controller at Line 78 
 [INFO ] 2021-04-10 09:36:18.144 INFO :com.cg.cba.service.TripBookingServiceImpl[updateTripBooking1] updateTripBooking service got excuted at Line 156 
+[INFO ] 2021-04-10 11:09:52.239 INFO :com.cg.cba.CbaApplication[main] Cab Booking Application Started at Line 17 
+[INFO ] 2021-04-10 11:09:52.781 INFO :com.cg.cba.CbaApplication[main] Cab Booking Application Started at Line 17 
+[INFO ] 2021-04-10 11:09:54.060 INFO :org.springframework.boot.StartupInfoLogger[logStarting] Starting CbaApplication using Java 1.8.0_281 on MacBook-Air.local with PID 80969 (/Users/arc/Desktop/cba_final_build_api copy/cba/bin/main started by arc in /Users/arc/Desktop/cba_final_build_api copy/cba) at Line 55 
+[DEBUG] 2021-04-10 11:09:54.069 DEBUG :org.springframework.boot.StartupInfoLogger[logStarting] Running with Spring Boot v2.4.3, Spring v5.3.4 at Line 56 
+[INFO ] 2021-04-10 11:09:54.070 INFO :org.springframework.boot.SpringApplication[logStartupProfileInfo] No active profile set, falling back to default profiles: default at Line 660 
+[INFO ] 2021-04-10 11:10:19.226 INFO :org.springframework.boot.StartupInfoLogger[logStarted] Started CbaApplication in 26.431 seconds (JVM running for 32.492) at Line 61 
+[INFO ] 2021-04-10 11:10:19.237 INFO :com.cg.cba.CbaApplication[main] Cab Booking Application Stopped at Line 19 
+[INFO ] 2021-04-10 11:10:20.857 INFO :com.cg.cba.CbaApplication[main] Cab Booking Application Started at Line 17 
+[INFO ] 2021-04-10 11:10:21.057 INFO :org.springframework.boot.StartupInfoLogger[logStarting] Starting CbaApplication using Java 1.8.0_281 on MacBook-Air.local with PID 80969 (/Users/arc/Desktop/cba_final_build_api copy/cba/bin/main started by arc in /Users/arc/Desktop/cba_final_build_api copy/cba) at Line 55 
+[DEBUG] 2021-04-10 11:10:21.062 DEBUG :org.springframework.boot.StartupInfoLogger[logStarting] Running with Spring Boot v2.4.3, Spring v5.3.4 at Line 56 
+[INFO ] 2021-04-10 11:10:21.062 INFO :org.springframework.boot.SpringApplication[logStartupProfileInfo] No active profile set, falling back to default profiles: default at Line 660 
+[INFO ] 2021-04-10 11:10:27.419 INFO :org.springframework.boot.StartupInfoLogger[logStarted] Started CbaApplication in 6.55 seconds (JVM running for 40.683) at Line 61 
+[INFO ] 2021-04-10 11:10:27.437 INFO :com.cg.cba.CbaApplication[main] Cab Booking Application Stopped at Line 19 
+[INFO ] 2021-04-10 13:37:28.962 INFO :com.cg.cba.CbaApplication[main] Cab Booking Application Started at Line 17 
+[INFO ] 2021-04-10 13:37:29.409 INFO :com.cg.cba.CbaApplication[main] Cab Booking Application Started at Line 17 
+[INFO ] 2021-04-10 13:37:30.293 INFO :org.springframework.boot.StartupInfoLogger[logStarting] Starting CbaApplication using Java 1.8.0_281 on MacBook-Air.local with PID 92237 (/Users/arc/Desktop/cba_final_build_api copy/cba/bin/main started by arc in /Users/arc/Desktop/cba_final_build_api copy/cba) at Line 55 
+[DEBUG] 2021-04-10 13:37:30.298 DEBUG :org.springframework.boot.StartupInfoLogger[logStarting] Running with Spring Boot v2.4.3, Spring v5.3.4 at Line 56 
+[INFO ] 2021-04-10 13:37:30.299 INFO :org.springframework.boot.SpringApplication[logStartupProfileInfo] No active profile set, falling back to default profiles: default at Line 660 
+[INFO ] 2021-04-10 13:37:44.563 INFO :org.springframework.boot.StartupInfoLogger[logStarted] Started CbaApplication in 15.147 seconds (JVM running for 18.395) at Line 61 
+[INFO ] 2021-04-10 13:37:44.572 INFO :com.cg.cba.CbaApplication[main] Cab Booking Application Stopped at Line 19 
+[INFO ] 2021-04-10 13:38:19.428 INFO :com.cg.cba.controller.CabController[deleteCab] Controller Triggered at Line 78 
+[INFO ] 2021-04-10 13:38:19.432 INFO :com.cg.cba.service.CabServiceImpl[deleteCab] Service Triggered at Line 83 
+[ERROR] 2021-04-10 13:38:19.746 ERROR :com.cg.cba.handler.CustomExceptionHandler[Exception] org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [fk1vcfjaeon0qavs1cjalgm3ro4]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement at Line 148 
+[INFO ] 2021-04-10 13:44:09.773 INFO :com.cg.cba.CbaApplication[main] Cab Booking Application Started at Line 17 
+[INFO ] 2021-04-10 13:44:10.162 INFO :org.springframework.boot.StartupInfoLogger[logStarting] Starting CbaApplication using Java 1.8.0_281 on MacBook-Air.local with PID 92237 (/Users/arc/Desktop/cba_final_build_api copy/cba/bin/main started by arc in /Users/arc/Desktop/cba_final_build_api copy/cba) at Line 55 
+[DEBUG] 2021-04-10 13:44:10.165 DEBUG :org.springframework.boot.StartupInfoLogger[logStarting] Running with Spring Boot v2.4.3, Spring v5.3.4 at Line 56 
+[INFO ] 2021-04-10 13:44:10.165 INFO :org.springframework.boot.SpringApplication[logStartupProfileInfo] No active profile set, falling back to default profiles: default at Line 660 
+[INFO ] 2021-04-10 13:44:13.851 INFO :org.springframework.boot.StartupInfoLogger[logStarted] Started CbaApplication in 4.072 seconds (JVM running for 407.684) at Line 61 
+[INFO ] 2021-04-10 13:44:13.855 INFO :com.cg.cba.CbaApplication[main] Cab Booking Application Stopped at Line 19 
+[INFO ] 2021-04-10 13:44:17.356 INFO :com.cg.cba.controller.CabController[deleteCab] Controller Triggered at Line 78 
+[INFO ] 2021-04-10 13:44:17.358 INFO :com.cg.cba.service.CabServiceImpl[deleteCab] Service Triggered at Line 83 
+[ERROR] 2021-04-10 13:44:17.481 ERROR :com.cg.cba.handler.CustomExceptionHandler[Exception] org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [fk1vcfjaeon0qavs1cjalgm3ro4]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement at Line 151 
+[INFO ] 2021-04-10 13:45:09.895 INFO :com.cg.cba.CbaApplication[main] Cab Booking Application Started at Line 17 
+[INFO ] 2021-04-10 13:45:09.975 INFO :org.springframework.boot.StartupInfoLogger[logStarting] Starting CbaApplication using Java 1.8.0_281 on MacBook-Air.local with PID 92237 (/Users/arc/Desktop/cba_final_build_api copy/cba/bin/main started by arc in /Users/arc/Desktop/cba_final_build_api copy/cba) at Line 55 
+[DEBUG] 2021-04-10 13:45:09.975 DEBUG :org.springframework.boot.StartupInfoLogger[logStarting] Running with Spring Boot v2.4.3, Spring v5.3.4 at Line 56 
+[INFO ] 2021-04-10 13:45:09.976 INFO :org.springframework.boot.SpringApplication[logStartupProfileInfo] No active profile set, falling back to default profiles: default at Line 660 
+[INFO ] 2021-04-10 13:45:13.021 INFO :org.springframework.boot.StartupInfoLogger[logStarted] Started CbaApplication in 3.114 seconds (JVM running for 466.807) at Line 61 
+[INFO ] 2021-04-10 13:45:13.030 INFO :com.cg.cba.CbaApplication[main] Cab Booking Application Stopped at Line 19 
+[INFO ] 2021-04-10 13:45:36.682 INFO :com.cg.cba.controller.CabController[deleteCab] Controller Triggered at Line 78 
+[INFO ] 2021-04-10 13:45:36.684 INFO :com.cg.cba.service.CabServiceImpl[deleteCab] Service Triggered at Line 83 
+[ERROR] 2021-04-10 13:45:36.782 ERROR :com.cg.cba.handler.CustomExceptionHandler[Exception] org.springframework.dao.DataIntegrityViolationException: could not execute statement; SQL [n/a]; constraint [fk1vcfjaeon0qavs1cjalgm3ro4]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement at Line 152 
+[INFO ] 2021-04-10 13:46:46.098 INFO :com.cg.cba.CbaApplication[main] Cab Booking Application Started at Line 17 
+[INFO ] 2021-04-10 13:46:46.477 INFO :org.springframework.boot.StartupInfoLogger[logStarting] Starting CbaApplication using Java 1.8.0_281 on MacBook-Air.local with PID 92237 (/Users/arc/Desktop/cba_final_build_api copy/cba/bin/main started by arc in /Users/arc/Desktop/cba_final_build_api copy/cba) at Line 55 
+[DEBUG] 2021-04-10 13:46:46.478 DEBUG :org.springframework.boot.StartupInfoLogger[logStarting] Running with Spring Boot v2.4.3, Spring v5.3.4 at Line 56 
+[INFO ] 2021-04-10 13:46:46.478 INFO :org.springframework.boot.SpringApplication[logStartupProfileInfo] No active profile set, falling back to default profiles: default at Line 660 
+[INFO ] 2021-04-10 13:46:50.311 INFO :org.springframework.boot.StartupInfoLogger[logStarted] Started CbaApplication in 4.201 seconds (JVM running for 564.093) at Line 61 
+[INFO ] 2021-04-10 13:46:50.314 INFO :com.cg.cba.CbaApplication[main] Cab Booking Application Stopped at Line 19 
+[INFO ] 2021-04-10 13:46:52.655 INFO :com.cg.cba.controller.CabController[deleteCab] Controller Triggered at Line 78 
+[INFO ] 2021-04-10 13:46:52.658 INFO :com.cg.cba.service.CabServiceImpl[deleteCab] Service Triggered at Line 83 
+[ERROR] 2021-04-10 13:46:52.772 ERROR :com.cg.cba.handler.CustomExceptionHandler[DataIntegrityViolationException] could not execute statement; SQL [n/a]; constraint [fk1vcfjaeon0qavs1cjalgm3ro4]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement at Line 146 
+[INFO ] 2021-04-10 13:47:28.633 INFO :com.cg.cba.controller.DriverController[deleteDriver] Controller Triggered at Line 96 
+[INFO ] 2021-04-10 13:47:28.640 INFO :com.cg.cba.service.DriverServiceImpl[deleteDriver] Service Triggered at Line 163 
+[INFO ] 2021-04-10 13:47:36.210 INFO :com.cg.cba.controller.DriverController[deleteDriver] Controller Triggered at Line 96 
+[INFO ] 2021-04-10 13:47:36.214 INFO :com.cg.cba.service.DriverServiceImpl[deleteDriver] Service Triggered at Line 163 
+[ERROR] 2021-04-10 13:47:36.332 ERROR :com.cg.cba.handler.CustomExceptionHandler[DataIntegrityViolationException] could not execute statement; SQL [n/a]; constraint [fkrtkoerr8aoaak1q9i0pkru9nw]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement at Line 146 
+[INFO ] 2021-04-10 13:59:29.240 INFO :org.springframework.boot.StartupInfoLogger[logStarting] Starting TripBookingServiceTest using Java 15.0.1 on MacBook-Air.local with PID 94161 (started by arc in /Users/arc/Desktop/cba_final_build_api copy/cba) at Line 55 
+[DEBUG] 2021-04-10 13:59:29.248 DEBUG :org.springframework.boot.StartupInfoLogger[logStarting] Running with Spring Boot v2.4.3, Spring v5.3.4 at Line 56 
+[INFO ] 2021-04-10 13:59:29.252 INFO :org.springframework.boot.SpringApplication[logStartupProfileInfo] No active profile set, falling back to default profiles: default at Line 660 
+[INFO ] 2021-04-10 13:59:56.458 INFO :org.springframework.boot.StartupInfoLogger[logStarted] Started TripBookingServiceTest in 27.975 seconds (JVM running for 35.445) at Line 61 
+[INFO ] 2021-04-10 13:59:56.801 INFO :com.cg.cba.service.TripBookingServiceImpl[insertTripBooking1] insertTripBooking service got excuted at Line 81 
+[INFO ] 2021-04-10 13:59:56.945 INFO :com.cg.cba.service.TripBookingServiceImpl[updateTripBooking1] updateTripBooking service got excuted at Line 156 
+[INFO ] 2021-04-10 13:59:57.007 INFO :com.cg.cba.service.TripBookingServiceImpl[deleteTripBooking] deleteTripBooking method got excuted from service layer at Line 200 
+[INFO ] 2021-04-10 13:59:57.041 INFO :com.cg.cba.service.TripBookingServiceImpl[deleteTripBooking] deleteTripBooking method got excuted from service layer at Line 200 
+[INFO ] 2021-04-10 13:59:57.238 INFO :org.springframework.boot.StartupInfoLogger[logStarting] Starting CustomerServiceTest using Java 15.0.1 on MacBook-Air.local with PID 94161 (started by arc in /Users/arc/Desktop/cba_final_build_api copy/cba) at Line 55 
+[DEBUG] 2021-04-10 13:59:57.242 DEBUG :org.springframework.boot.StartupInfoLogger[logStarting] Running with Spring Boot v2.4.3, Spring v5.3.4 at Line 56 
+[INFO ] 2021-04-10 13:59:57.245 INFO :org.springframework.boot.SpringApplication[logStartupProfileInfo] No active profile set, falling back to default profiles: default at Line 660 
+[INFO ] 2021-04-10 14:00:05.960 INFO :org.springframework.boot.StartupInfoLogger[logStarted] Started CustomerServiceTest in 8.785 seconds (JVM running for 44.946) at Line 61 
+[INFO ] 2021-04-10 14:00:05.974 INFO :com.cg.cba.service.CustomerServiceImpl[updateCustomer] Service Triggered at Line 59 
+[INFO ] 2021-04-10 14:00:06.021 INFO :com.cg.cba.service.CustomerServiceImpl[updateCustomer] Service Triggered at Line 59 
+[INFO ] 2021-04-10 14:00:06.055 INFO :com.cg.cba.service.CustomerServiceImpl[insertCustomer] Service Triggered at Line 33 
+[INFO ] 2021-04-10 14:00:06.070 INFO :com.cg.cba.service.CustomerServiceImpl[deleteCustomer] Service Triggered at Line 79 
+[INFO ] 2021-04-10 14:00:06.238 INFO :org.springframework.boot.StartupInfoLogger[logStarting] Starting CabServiceTest using Java 15.0.1 on MacBook-Air.local with PID 94161 (started by arc in /Users/arc/Desktop/cba_final_build_api copy/cba) at Line 55 
+[DEBUG] 2021-04-10 14:00:06.242 DEBUG :org.springframework.boot.StartupInfoLogger[logStarting] Running with Spring Boot v2.4.3, Spring v5.3.4 at Line 56 
+[INFO ] 2021-04-10 14:00:06.244 INFO :org.springframework.boot.SpringApplication[logStartupProfileInfo] No active profile set, falling back to default profiles: default at Line 660 
+[INFO ] 2021-04-10 14:00:14.546 INFO :org.springframework.boot.StartupInfoLogger[logStarted] Started CabServiceTest in 8.404 seconds (JVM running for 53.503) at Line 61 
+[INFO ] 2021-04-10 14:00:14.567 INFO :com.cg.cba.service.CabServiceImpl[updateCab] Service Triggered at Line 65 
+[INFO ] 2021-04-10 14:00:14.594 INFO :com.cg.cba.service.CabServiceImpl[insertCab] Service Triggered at Line 48 
+[INFO ] 2021-04-10 14:00:14.609 INFO :com.cg.cba.service.CabServiceImpl[deleteCab] Service Triggered at Line 83 
+[INFO ] 2021-04-10 14:00:14.651 INFO :com.cg.cba.service.CabServiceImpl[updateCab] Service Triggered at Line 65 
+[INFO ] 2021-04-10 14:00:14.757 INFO :org.springframework.boot.StartupInfoLogger[logStarting] Starting DriverServiceTest using Java 15.0.1 on MacBook-Air.local with PID 94161 (started by arc in /Users/arc/Desktop/cba_final_build_api copy/cba) at Line 55 
+[DEBUG] 2021-04-10 14:00:14.759 DEBUG :org.springframework.boot.StartupInfoLogger[logStarting] Running with Spring Boot v2.4.3, Spring v5.3.4 at Line 56 
+[INFO ] 2021-04-10 14:00:14.831 INFO :org.springframework.boot.SpringApplication[logStartupProfileInfo] No active profile set, falling back to default profiles: default at Line 660 
+[INFO ] 2021-04-10 14:00:28.252 INFO :org.springframework.boot.StartupInfoLogger[logStarted] Started DriverServiceTest in 13.545 seconds (JVM running for 67.239) at Line 61 
+[INFO ] 2021-04-10 14:00:28.616 INFO :com.cg.cba.service.DriverServiceImpl[updateDriver] Service Triggered at Line 109 
+[INFO ] 2021-04-10 14:00:28.634 INFO :com.cg.cba.service.DriverServiceImpl[deleteDriver] Service Triggered at Line 163 
+[INFO ] 2021-04-10 14:00:28.654 INFO :com.cg.cba.service.DriverServiceImpl[updateDriver1] Service Triggered at Line 135 
+[INFO ] 2021-04-10 14:00:28.693 INFO :com.cg.cba.service.DriverServiceImpl[insertDriver1] Service Triggered at Line 73 
+[INFO ] 2021-04-10 14:00:28.889 INFO :org.springframework.boot.StartupInfoLogger[logStarting] Starting AdminServiceTest using Java 15.0.1 on MacBook-Air.local with PID 94161 (started by arc in /Users/arc/Desktop/cba_final_build_api copy/cba) at Line 55 
+[DEBUG] 2021-04-10 14:00:28.893 DEBUG :org.springframework.boot.StartupInfoLogger[logStarting] Running with Spring Boot v2.4.3, Spring v5.3.4 at Line 56 
+[INFO ] 2021-04-10 14:00:28.897 INFO :org.springframework.boot.SpringApplication[logStartupProfileInfo] No active profile set, falling back to default profiles: default at Line 660 
+[INFO ] 2021-04-10 14:00:37.671 INFO :org.springframework.boot.StartupInfoLogger[logStarted] Started AdminServiceTest in 8.942 seconds (JVM running for 76.658) at Line 61 
+[INFO ] 2021-04-10 14:00:37.717 INFO :com.cg.cba.service.AdminServiceImpl[deleteAdmin] Service Triggered at Line 89 
+[INFO ] 2021-04-10 14:00:37.738 INFO :com.cg.cba.service.AdminServiceImpl[updateAdmin] Service Update Admin Triggered at Line 69 
+[INFO ] 2021-04-10 14:00:37.751 INFO :com.cg.cba.service.AdminServiceImpl[insertAdmin] Service Insert Admin Triggered at Line 42 
+[INFO ] 2021-04-10 14:00:37.765 INFO :com.cg.cba.service.AdminServiceImpl[updateAdmin] Service Update Admin Triggered at Line 69 
+[INFO ] 2021-04-10 14:00:37.837 INFO :org.springframework.boot.StartupInfoLogger[logStarting] Starting LoginServiceTest using Java 15.0.1 on MacBook-Air.local with PID 94161 (started by arc in /Users/arc/Desktop/cba_final_build_api copy/cba) at Line 55 
+[DEBUG] 2021-04-10 14:00:37.843 DEBUG :org.springframework.boot.StartupInfoLogger[logStarting] Running with Spring Boot v2.4.3, Spring v5.3.4 at Line 56 
+[INFO ] 2021-04-10 14:00:37.846 INFO :org.springframework.boot.SpringApplication[logStartupProfileInfo] No active profile set, falling back to default profiles: default at Line 660 
+[INFO ] 2021-04-10 14:00:42.381 INFO :org.springframework.boot.StartupInfoLogger[logStarted] Started LoginServiceTest in 4.595 seconds (JVM running for 81.368) at Line 61 
+[INFO ] 2021-04-10 14:00:42.397 INFO :com.cg.cba.service.LoginServiceImpl[signIn] Admin Found at Line 76 
+[INFO ] 2021-04-10 14:00:42.398 INFO :com.cg.cba.service.LoginServiceImpl[signIn] Driver Found at Line 65 
+[INFO ] 2021-04-10 14:00:42.401 INFO :com.cg.cba.service.LoginServiceImpl[signIn] Customer Found at Line 53 
+[INFO ] 2021-04-10 14:00:42.437 INFO :com.cg.cba.service.LoginServiceImpl[signOut] Admin Found at Line 121 
+[INFO ] 2021-04-10 14:00:42.439 INFO :com.cg.cba.service.LoginServiceImpl[signOut] Driver Found at Line 110 
+[INFO ] 2021-04-10 14:00:42.440 INFO :com.cg.cba.service.LoginServiceImpl[signOut] Customer Found at Line 98 
+[INFO ] 2021-04-10 14:00:42.533 INFO :org.springframework.boot.StartupInfoLogger[logStarting] Starting CbaApplicationTests using Java 15.0.1 on MacBook-Air.local with PID 94161 (started by arc in /Users/arc/Desktop/cba_final_build_api copy/cba) at Line 55 
+[DEBUG] 2021-04-10 14:00:42.540 DEBUG :org.springframework.boot.StartupInfoLogger[logStarting] Running with Spring Boot v2.4.3, Spring v5.3.4 at Line 56 
+[INFO ] 2021-04-10 14:00:42.545 INFO :org.springframework.boot.SpringApplication[logStartupProfileInfo] No active profile set, falling back to default profiles: default at Line 660 
+[INFO ] 2021-04-10 14:00:48.994 INFO :org.springframework.boot.StartupInfoLogger[logStarted] Started CbaApplicationTests in 6.515 seconds (JVM running for 87.98) at Line 61 

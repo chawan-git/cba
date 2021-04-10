@@ -141,7 +141,11 @@ public class CustomExceptionHandler {
 		return new ResponseEntity<String>("Mapping Mismatch",HttpStatus.NOT_FOUND);
 	}
 
-	
+	@ExceptionHandler( org.springframework.dao.DataIntegrityViolationException.class)
+	public ResponseEntity<String> DataIntegrityViolationException( org.springframework.dao.DataIntegrityViolationException exception){
+		log.error(exception.getMessage());
+		return new ResponseEntity<String>("Cannot delete record, since it's currently used by another entity!",HttpStatus.NOT_FOUND);
+	}
 	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<String> Exception(Exception exception){
