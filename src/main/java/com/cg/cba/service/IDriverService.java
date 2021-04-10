@@ -45,4 +45,6 @@ public interface IDriverService {
 	public Driver viewDriverByUsername(String username) throws DriverNotFoundException,CabNotFoundException;
 	
 	public Driver viewDriverByEmail(String email) throws DriverNotFoundException,CabNotFoundException;
+	
+	public List<Driver> viewAllAvailableDriversBasedOnCarType(String carType) throws DriverNotFoundException;
 }

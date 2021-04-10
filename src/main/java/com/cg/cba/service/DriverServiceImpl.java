@@ -299,4 +299,16 @@ public class DriverServiceImpl implements IDriverService {
 		}
 		return driver1;
 	}
+
+	@Override
+	public List<Driver> viewAllAvailableDriversBasedOnCarType(String carType) throws DriverNotFoundException {
+		// TODO Auto-generated method stub
+		log.info("Service Triggered");
+		List<Driver> drivers = driverRepository.viewAllAvailableDriversBasedOnCarType(carType);
+		if (drivers.isEmpty()) {
+			log.error("No Drivers found!");
+			throw new DriverNotFoundException("No Drivers Found!");
+		}
+		return drivers;	
+	}
 }

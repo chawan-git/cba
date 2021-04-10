@@ -50,12 +50,12 @@ public class TripBookingController {
 	//method to validate input data
 	public void validateInput(TripBooking tripBooking)
 	{
-		if(!Pattern.compile("[a-z]").matcher(tripBooking.getFromLocation()).find())
-			throw new InvalidInputException("Invalid From Loaction");
-		if(!Pattern.compile("[A-Za-z]").matcher(tripBooking.getToLocation()).find())
-			throw new InvalidInputException("Invalid To Loaction");
+		if(!Pattern.compile("[A-Za-z]+").matcher(tripBooking.getFromLocation()).find())
+			throw new InvalidInputException("Invalid From Location");
+		if(!Pattern.compile("[A-Za-z]+").matcher(tripBooking.getToLocation()).find())
+			throw new InvalidInputException("Invalid To Location");
 		if(!Pattern.compile("([1-9]+)").matcher(Float.toString(tripBooking.getDistanceInKm())).find())
-			throw new InvalidInputException("Invalid To Loaction");		
+			throw new InvalidInputException("Invalid distance");		
 		
 	}
 	
@@ -65,8 +65,8 @@ public class TripBookingController {
 	public ResponseEntity<TripBooking> insertTripBooking(@RequestBody TripBooking tripBooking) throws TripAlreadyExistsException, CustomerNotFoundException, DriverNotFoundException {
 		
 		log.info("insertTripBooking requested");
-		validateInput(tripBooking);
-		TripBooking tb = tripBookingService.insertTripBooking(tripBooking);
+//		validateInput(tripBooking);
+		TripBooking tb = tripBookingService.insertTripBooking1(tripBooking);
 		return new ResponseEntity<TripBooking>(tb, HttpStatus.OK);
 	}
 
@@ -76,8 +76,8 @@ public class TripBookingController {
 	public ResponseEntity<TripBooking> updateTripBooking(@RequestBody TripBooking tripBooking) throws TripBookingNotFoundException, CustomerNotFoundException, DriverNotFoundException {
 		
 		log.info("updateTripBooking request is placed from controller");
-		validateInput(tripBooking);
-		TripBooking tb = tripBookingService.updateTripBooking(tripBooking);
+//		validateInput(tripBooking);
+		TripBooking tb = tripBookingService.updateTripBooking1(tripBooking);
 		return new ResponseEntity<TripBooking>(tb, HttpStatus.OK);
 	}
 

@@ -182,4 +182,13 @@ public class DriverController {
 		
 	}
 	
+	@ApiOperation(value = "Used to get Available Drivers by cab type")
+	@GetMapping("viewAllAvailableDriversBasedOnCarType/{carType}")
+	public ResponseEntity<List<Driver>> viewAllAvailableDriversBasedOnCarType(@PathVariable String carType) throws DriverNotFoundException{
+		log.info("Controller Triggered");
+		List<Driver> driver= iDriverService.viewAllAvailableDriversBasedOnCarType(carType);
+		return new ResponseEntity<List<Driver>>(driver,HttpStatus.OK);
+		
+	}
+	
 }

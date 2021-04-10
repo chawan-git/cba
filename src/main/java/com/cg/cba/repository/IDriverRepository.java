@@ -49,5 +49,7 @@ public interface IDriverRepository extends JpaRepository<Driver,Integer> {
 	public List<Driver> viewOnTripDrivers() throws DriverNotFoundException;
 	@Query("SELECT driver FROM Driver driver WHERE driver.status = 'NotAvailable'")
 	public List<Driver> viewNotAvailableDrivers() throws DriverNotFoundException;
+	@Query("SELECT driver FROM Driver driver, Cab cab WHERE driver.cab.cabId = cab.cabId AND driver.status = 'Available' AND cab.carType = ?1")
+	public List<Driver> viewAllAvailableDriversBasedOnCarType(String carType) throws DriverNotFoundException;
 
 }

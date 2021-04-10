@@ -93,12 +93,12 @@ public class TripBookingServiceImpl implements ITripBookingService {
 		//checking the details of customer, driver and cab provided
 //		constraintCheck(tripBooking);
 		
-		if(tripBooking.getBill()==0)
-		{
-			float perKmRate = tripBooking.getDriver().getCab().getPerKmRate();
-			float distance = tripBooking.getDistanceInKm();				
-			tripBooking.setBill(distance*perKmRate);
-		}
+//		if(tripBooking.getBill()==0)
+//		{
+//			float perKmRate = tripBooking.getDriver().getCab().getPerKmRate();
+//			float distance = tripBooking.getDistanceInKm();				
+//			tripBooking.setBill(distance*perKmRate);
+//		}
 		
 		//saving to database
 		TripBooking tb = tripBookingRepository.save(tripBooking);
