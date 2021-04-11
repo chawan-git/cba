@@ -42,11 +42,11 @@ public interface ITripBookingRepository extends JpaRepository<TripBooking, Integ
 	public List<TripBooking> viewTripsTripStarted();
 	@Query("SELECT trip FROM TripBooking trip WHERE trip.status = 'TripEnded'")
 	public List<TripBooking> viewTripsTripEnded();
-	@Query("SELECT trip FROM TripBooking trip WHERE trip.status = 'TripPaid'")
+	@Query("SELECT trip FROM TripBooking trip WHERE trip.status = 'Paid'")
 	public List<TripBooking> viewTripsTripPaid();
-	@Query("SELECT SUM(trip.bill) FROM TripBooking trip, Driver driver WHERE trip.driver.driverId = ?1 AND trip.driver.driverId = driver.driverId")
+	@Query("SELECT SUM(trip.bill) FROM TripBooking trip, Driver driver WHERE trip.driver.driverId = ?1 AND trip.driver.driverId = driver.driverId AND trip.status = 'Paid'")
 	public Double getTotalRevenueByDriverId(int driverId);
-	@Query("SELECT SUM(trip.bill) FROM TripBooking trip, Driver driver WHERE trip.driver.driverId = ?1 AND (trip.fromDateTime >= ?2 AND trip.toDateTime <= ?3) AND trip.driver.driverId = driver.driverId")
+	@Query("SELECT SUM(trip.bill) FROM TripBooking trip, Driver driver WHERE trip.driver.driverId = ?1 AND (trip.fromDateTime >= ?2 AND trip.toDateTime <= ?3) AND trip.driver.driverId = driver.driverId AND trip.status = 'Paid'")
 	public Double getRevenueOnDaysByDriverId(int driverId, LocalDateTime fromDateTime, LocalDateTime toDateTime);
 	
 }
